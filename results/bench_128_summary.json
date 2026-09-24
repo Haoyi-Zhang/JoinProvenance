@@ -1,0 +1,18 @@
+{
+  "n": 128,
+  "records": 126,
+  "families": [
+    "empty",
+    "diagonal",
+    "row",
+    "column",
+    "band",
+    "cluster",
+    "random"
+  ],
+  "mismatches": 0,
+  "cpu_seconds": 0.937299728,
+  "wall_seconds": 0.9393101709999883,
+  "peak_rss_kib": 97964,
+  "workers": 1
+}

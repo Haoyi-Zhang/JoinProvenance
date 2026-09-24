@@ -1,0 +1,1 @@
+{"dictionaries": 16, "support_cases": 8192, "mismatches": 0, "cpu_seconds": 0.035993578000000026, "wall_seconds": 0.036332730000140145, "peak_rss_kib": 92968, "workers": 1}

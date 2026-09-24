@@ -1,0 +1,12 @@
+{
+  "n": 32768,
+  "records": 9,
+  "families": [
+    "diagonal"
+  ],
+  "mismatches": 0,
+  "cpu_seconds": 5.5880333669999995,
+  "wall_seconds": 5.594263295000019,
+  "peak_rss_kib": 428640,
+  "workers": 1
+}

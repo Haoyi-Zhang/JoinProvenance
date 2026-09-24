@@ -1,0 +1,9 @@
+{
+  "instances": 10,
+  "expanded_instances": 4,
+  "mismatches": 0,
+  "cpu_seconds": 0.39102857600000007,
+  "wall_seconds": 0.3944296520003263,
+  "peak_rss_kib": 143628,
+  "workers": 1
+}

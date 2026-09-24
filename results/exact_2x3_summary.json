@@ -1,0 +1,14 @@
+{
+  "m": 2,
+  "n": 3,
+  "masks": 64,
+  "mismatches": 0,
+  "boolean_gap_cases": 0,
+  "rank_gap_cases": 0,
+  "row_suboptimal_cases": 0,
+  "sparse_suboptimal_cases": 6,
+  "cpu_seconds": 0.0,
+  "wall_seconds": 0.0022365899999385874,
+  "peak_rss_kib": 92840,
+  "workers": 1
+}

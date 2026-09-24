@@ -1,0 +1,9 @@
+case,existence_detects,count_detects,input_lineage_detects,monomial_support_detects,exact_coefficients_detect
+drop_obligation,False,True,False,True,True
+duplicate_owner,False,True,False,False,True
+replay_acknowledged,False,True,False,False,True
+project_and_deduplicate,False,True,True,True,True
+miss_old_new_delta,False,True,False,True,True
+rename_identity,False,False,True,True,True
+same_count_wrong_pairing,False,False,False,True,True
+boolean_cover_as_positive,False,True,False,False,True

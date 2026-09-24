@@ -1,0 +1,3 @@
+mask,pending,emitted,positive_width,boolean_width,rational_rank,row_width,sparse_width,sparse_memberships
+0,0,1,0,0,0,0,0,0
+1,1,0,1,1,1,1,1,2

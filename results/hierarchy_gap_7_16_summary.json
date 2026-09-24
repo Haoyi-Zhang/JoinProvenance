@@ -1,0 +1,8 @@
+{
+  "cases": 1,
+  "mismatches": 0,
+  "cpu_seconds": 0.08685441199999999,
+  "wall_seconds": 0.08749740900020697,
+  "peak_rss_kib": 106040,
+  "workers": 1
+}

@@ -1,0 +1,16 @@
+case,detected
+missing-block,1
+duplicate-block,1
+false-cost,1
+false-state-value,1
+missing-state,1
+extra-state,1
+false-decision,1
+wrong-dictionary,1
+changed-source-frontier,1
+repeated-column-member,1
+wrong-traversal-decision,1
+boolean-state-cost,1
+missing-state-field,1
+noncanonical-right-order,1
+empty-left-factor,1
