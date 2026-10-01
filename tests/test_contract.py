@@ -1,5 +1,7 @@
 """Finite checks of the published representation and transition contracts."""
+import csv
 import json
+import statistics
 import tempfile
 import unittest
 from contextlib import redirect_stdout
@@ -103,6 +105,35 @@ class ContractTests(unittest.TestCase):
         e=Engine();e.insert_epoch([TupleRecord(0,0,0)],[TupleRecord(0,0,0)],2)
         with self.assertRaises(AssertionError):
             e.check(Counter({(0,0):-1}))
+
+
+    def test_random_encoded_paired_ratio_three_seed_fixture(self):
+        import summarize
+        root=Path(__file__).resolve().parents[1]
+        source=root/'results'/'hierarchy_bench_128_random.csv'
+        with source.open(newline='') as handle:
+            rows=[row for row in csv.DictReader(handle) if row['regime']=='encoded']
+        self.assertEqual(len(rows),9)
+        seeds=sorted({int(row['seed']) for row in rows})
+        self.assertEqual(seeds,[1701,2718,3141])
+        per_seed=[]
+        for seed in seeds:
+            seed_rows=[row for row in rows if int(row['seed'])==seed]
+            self.assertEqual(len(seed_rows),3)
+            ratios={int(row['canonical_cost'])/int(row['optimized_cost'])
+                    for row in seed_rows}
+            self.assertEqual(len(ratios),1)
+            per_seed.append(ratios.pop())
+        expected=28056/20440
+        self.assertEqual(statistics.median(per_seed),expected)
+        self.assertAlmostEqual(expected,1.3726027397260274,15)
+        with tempfile.TemporaryDirectory() as td:
+            target=Path(td)/'benchmark-summary.csv'
+            output=summarize.build_benchmark_summary(root/'results',target)
+        item=next(row for row in output
+                  if row['n']==128 and row['family']=='random'
+                  and row['regime']=='encoded')
+        self.assertEqual(item['payload_ratio_median'],expected)
 
     def test_reproduction_compare_detects_missing_output(self):
         import reproduce

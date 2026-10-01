@@ -3,11 +3,12 @@ import copy
 import unittest
 from collections import Counter
 from unittest.mock import patch
-from provenance.laminar import build_hierarchy, compile_transfer, Hierarchy, TreeNode
+from provenance.laminar import build_hierarchy, compile_transfer, weighted_cost, Hierarchy, TreeNode
 from provenance.certificate import verify_transfer
-from provenance.rectangles import polynomial
+from provenance.rectangles import polynomial, Block
 from provenance.regions import RegionEngine
 from provenance.engine import TupleRecord
+from provenance.hierarchy_campaign import greedy
 
 class HierarchyTests(unittest.TestCase):
     def check(self, left, right, holes, **weights):
@@ -116,6 +117,45 @@ class HierarchyTests(unittest.TestCase):
         mutant=copy.deepcopy(packet)
         b=mutant.blocks[0]
         mutant.blocks[0]=type(b)(b.left,tuple(reversed(b.right)))
+        with self.assertRaises(ValueError):
+            verify_transfer(left,right,holes,mutant,hierarchy=tree)
+
+
+    def test_zero_frontier_preserves_trusted_right_order(self):
+        left=(20,10);right=(9,1,7,3);holes=()
+        tree=build_hierarchy(left,holes)
+        packet=compile_transfer(left,right,holes,hierarchy=tree)
+        stats=verify_transfer(left,right,holes,packet,hierarchy=tree)
+        self.assertEqual(packet.blocks,[Block(left,right)])
+        self.assertEqual(packet.cost,len(left)+len(right))
+        self.assertEqual(stats,{'cost':6,'states':1,'blocks':1,
+                                'checked':True,'height':0})
+
+    def test_all_acknowledged_is_empty_packet(self):
+        left=(0,1);right=(7,3);holes={(i,j) for i in left for j in right}
+        tree=build_hierarchy(left,holes)
+        packet=compile_transfer(left,right,holes,hierarchy=tree)
+        stats=verify_transfer(left,right,holes,packet,hierarchy=tree)
+        self.assertEqual(packet.blocks,[])
+        self.assertEqual(packet.cost,0)
+        self.assertTrue(stats['checked'])
+        self.assertEqual(stats['blocks'],0)
+        self.assertEqual(polynomial(packet.blocks),Counter())
+
+    def test_two_by_three_canonical_seven_optimum_six(self):
+        left=(0,1);right=(0,1,2);holes={(0,1),(1,2)}
+        tree=build_hierarchy(left,holes,singleton_leaves=True)
+        packet=compile_transfer(left,right,holes,hierarchy=tree)
+        stats=verify_transfer(left,right,holes,packet,hierarchy=tree)
+        self.assertEqual(packet.blocks,[Block((0,),(0,2)),Block((1,),(0,1))])
+        self.assertEqual(packet.cost,6)
+        self.assertEqual(stats['cost'],6)
+        canonical=greedy(left,right,holes,tree)
+        self.assertEqual(weighted_cost(canonical,dict.fromkeys(left,1),
+                                       dict.fromkeys(right,1),0),7)
+        mutant=copy.deepcopy(packet)
+        first=mutant.blocks[0]
+        mutant.blocks[0]=Block(first.left,first.right+(first.right[-1],))
         with self.assertRaises(ValueError):
             verify_transfer(left,right,holes,mutant,hierarchy=tree)
 

@@ -1,0 +1,52 @@
+{
+  "scope": "Focused validation of the theorem, ordering, checker-interface, aggregation, timing-label, mutation-count, README, and figure-route corrections; not a rerun of the 97-job campaign or the two scale jobs.",
+  "resource_policy": {
+    "workers": 1,
+    "virtual_memory_ceiling_gib": 3.5
+  },
+  "python_sources_compile": true,
+  "unit_tests": {
+    "run": 35,
+    "passed": 35,
+    "failed": 0
+  },
+  "two_by_three_example": {
+    "canonical_cost": 7,
+    "optimized_cost": 6,
+    "checked": true,
+    "blocks": 2
+  },
+  "certificate_corruptions": {
+    "fixtures": 15,
+    "detected": 15,
+    "mismatches": 0
+  },
+  "retained_result_reaggregation": {
+    "timing_rows": 504,
+    "support_instances": 36,
+    "weighted_instances": 72,
+    "n128_random_encoded_paired_ratio_median": 1.3726027397260274
+  },
+  "reference_validator": {
+    "cited_entries": 38,
+    "tods_full_text": 12,
+    "influential_full_text": 5,
+    "adjacent_full_text": 5,
+    "passed": true
+  },
+  "paper": {
+    "pages": 42,
+    "all_pages_rendered": 42,
+    "page_2_full_size_checked": true,
+    "page_16_full_size_checked": true,
+    "page_42_full_size_checked": true,
+    "type3_fonts": 0,
+    "encrypted": false
+  },
+  "not_rerun": [
+    "97-job campaign",
+    "generated benchmark timing jobs",
+    "n=8192 scale job",
+    "n=32768 scale job"
+  ]
+}

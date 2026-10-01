@@ -22,7 +22,7 @@ workloads.
 - `provenance/` — packet optimizer, independent certificate checker, exact
   finite oracles, sequential interpreter, and campaign generators.
 - `proofs/transfer.md` — complete hand proof, assumptions, and trust boundary.
-- `tests/` — 31 standard-library unit tests.
+- `tests/` — standard-library unit and regression tests.
 - `results/` — retained raw outputs for every campaign job.
 - `analysis/` — claim-linked summaries regenerated from `results/`.
 - `reproduction/` — final clean-extraction ledger, comparison, summary, and 97
@@ -40,6 +40,36 @@ The implementation uses only the Python standard library. All data are
 locally generated, deterministic under the recorded parameters, and contain no
 private, production, device, service, or human-subject records.
 
+## Runtime prerequisites and preflight
+
+The documented full campaign targets Linux/POSIX because its admission wrapper
+uses `resource.RLIMIT_AS` and `resource.RLIMIT_CPU`, queries or sets CPU affinity
+with `os.sched_getaffinity`/`os.sched_setaffinity`, and launches children through
+`subprocess.run(..., preexec_fn=...)`. Native Windows execution of the full
+campaign is not supported or claimed. No new hardware, service, or external
+solver is required.
+
+Run this low-cost preflight before reproduction to record the local interpreter
+and required facilities without executing a scientific job:
+
+```bash
+python - <<'PY'
+import os, platform, resource, sys
+print("python", sys.version.replace("\n", " "))
+print("implementation", platform.python_implementation())
+print("platform", sys.platform, platform.platform())
+print("RLIMIT_AS", hasattr(resource, "RLIMIT_AS"))
+print("RLIMIT_CPU", hasattr(resource, "RLIMIT_CPU"))
+print("affinity", hasattr(os, "sched_getaffinity"), hasattr(os, "sched_setaffinity"))
+if not sys.platform.startswith("linux"):
+    raise SystemExit("the documented full campaign requires Linux")
+PY
+```
+
+The current package was checked with CPython 3.13.5 on Linux. Timing and peak
+RSS remain host-dependent descriptive fields; discrete scientific outputs are
+the reproducibility target.
+
 ## Immediate checks
 
 Run from the repository root:
@@ -53,8 +83,8 @@ python summarize.py --results results --analysis analysis \
 
 Expected outcomes:
 
-- 31 unit tests pass;
-- the example constructs, checks, and installs a valid packet;
+- 35 unit tests pass;
+- the example constructs and checks a valid packet and reports its blocks;
 - `summarize.py` exits zero, reports 380,928 exact-oracle cases and zero
   claim-critical mismatch, and rebuilds `analysis/summary.json` and
   `analysis/benchmark-summary.csv`.
@@ -79,10 +109,16 @@ no discrete mismatch, no unexpected generated file, and no retained claim-bearin
 file that failed to regenerate. CPU/wall/RSS values are descriptive and are
 excluded from deterministic equality comparison.
 
-The delivered `reproduction/` directory records a fresh-extraction run that
-completed all 97 jobs with exit code zero, compared all 222 files with zero
-discrete mismatch, and observed 204.929699 child CPU seconds, 205.348004 summed
-serial wall seconds, and 855,868 KiB (835.8 MiB) peak cumulative child RSS. Internal clean
+The delivered `reproduction/` directory records the retained fresh-extraction
+run that completed all 97 jobs with exit code zero, compared all 222 files with
+zero discrete mismatch, and observed 204.929699 child CPU seconds, 205.348004
+summed serial wall seconds, and 855,868 KiB (835.8 MiB) peak cumulative child
+RSS. The focused TODS repair did not rerun those 97 jobs or either scale job: it
+reran the current 35-test suite and the 15 certificate-corruption fixtures, then
+regenerated aggregate tables from the unchanged retained raw rows. Accordingly,
+`reproduction/logs/unit-tests.txt` truthfully remains the older 31-test log from
+the retained 97-job run; the four added regression tests belong to the focused
+recheck recorded in `analysis/focused-corrective-recheck.json`. Internal clean
 reproduction is not independent external review.
 
 ## Claim-critical commands
@@ -109,13 +145,21 @@ and the explicit-packet/shared-circuit boundary.
 The executable exhaustive checks are finite checks, not machine-checked proofs
 of unbounded theorems. General statements are supported by the hand argument in
 `proofs/transfer.md`; code checks attack small counterexamples, integration
-paths, and implementation errors. Benchmark time includes Python, observer, and
-certificate work. It establishes neither a production speedup nor a claim that
+paths, and implementation errors. The benchmark method columns are `time.perf_counter` elapsed intervals. The
+large scale-job wall/RSS summaries additionally include the independent bitset
+observer and surrounding job work. It establishes neither a production speedup nor a claim that
 payload size equals peak memory or network traffic.
 
 The optimizer's exactness holds only for the supplied laminar hierarchy and the
-stated additive positive-entry cost. It does not choose a hierarchy, optimize
-all biclique covers, or optimize arbitrary shared positive circuits.
+stated additive positive-entry cost. The compiler and checker each sort every
+serialized right factor in trusted dictionary order, so their honest time bound
+includes `sigma(Pi) = sum |V| log(|V|+1)` in addition to output size. The checker
+returns an ordinary statistics dictionary with `checked=True`; it is not an
+immutable checked-packet capability. Sequential installation reads
+`packet.blocks` after a successful check and therefore assumes a benign
+same-thread caller. Dense pair/bitset coefficient expansion is performed only by
+the independent observer. The method does not choose a hierarchy, optimize all
+biclique covers, or optimize arbitrary shared positive circuits.
 
 ## License and attribution
 

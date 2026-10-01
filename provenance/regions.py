@@ -81,7 +81,11 @@ class RegionEngine:
                 # The source dictionary is frozen before the untrusted packet.
                 hierarchy = build_hierarchy(a,region.emitted)
                 packet = compile_transfer(a,b,region.emitted,hierarchy=hierarchy)
-                verify_transfer(a,b,region.emitted,packet,hierarchy=hierarchy)
+                check_stats = verify_transfer(a,b,region.emitted,packet,hierarchy=hierarchy)
+                if check_stats.get('checked') is not True:
+                    raise ValueError('certificate checker did not accept packet')
+                # Installation reads the original packet after checking; this is
+                # a benign same-thread contract, not an immutable checked packet.
                 blocks=packet.blocks
             elif method == 'sparse':
                 blocks = sparse_complement(a,b,region.emitted)

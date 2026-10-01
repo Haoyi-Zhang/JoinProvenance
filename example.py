@@ -6,10 +6,10 @@ from provenance.rectangles import polynomial
 left=(0,1);right=(0,1,2);emitted={(0,1),(1,2)}
 hierarchy=build_hierarchy(left,emitted,singleton_leaves=True)
 packet=compile_transfer(left,right,emitted,hierarchy=hierarchy)
-verified=verify_transfer(left,right,emitted,packet,hierarchy=hierarchy)
+check_stats=verify_transfer(left,right,emitted,packet,hierarchy=hierarchy)
 canonical=greedy(left,right,emitted,hierarchy)
 print('canonical membership cost:',sum(b.memberships for b in canonical))
-print('certified optimum:',verified)
+print('checker statistics:',check_stats)
 print('blocks:',packet.blocks)
 assert packet.cost==6
 assert polynomial(packet.blocks)==polynomial(canonical)

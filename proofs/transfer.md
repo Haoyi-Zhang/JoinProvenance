@@ -196,13 +196,24 @@ rows, and, when both groups are nonempty, puts their roots below a new root.
 For d>=1 this gives t<=2(d+1)-1 and H<=1+ceil(log2 d). Also d<=e. For d=0 there
 is a single uniform root. Selection of this hierarchy is not claimed optimal.
 
+For an emitted packet Pi, let
+
+    sigma(Pi) = sum_{(A,V) in Pi} |V| log(|V|+1).
+
+This is the comparison-sort work performed by the current compiler and checker
+to serialize each right factor in the trusted right-occurrence dictionary order.
+The mathematical factor is a set, but the implementation deliberately binds it
+to one canonical sequence.
+
 **Theorem 6 (output-sensitive construction).** For that sparse hierarchy, an
 honest optimum packet and its certificate can be constructed and checked in
-expected O(m+n+e log(e+1)+W) word operations and space, where m=|A|, n=|B| and W
-is the total number of row and column memberships in the emitted packet. The
-case e=0 takes O(m+n+W). This word-operation bound assumes identities and exact
-arithmetic fit the stated word model; otherwise integer-operation bit costs
-must also be counted.
+expected O(m+n+e log(e+1)+W+sigma(Pi)) word operations and
+O(m+n+e log(e+1)+W) space, where m=|A|, n=|B| and W is the total number of row
+and column memberships in the emitted packet. For e=0, a nonempty bucket emits
+one root block, giving O(m+n+W+n log(n+1)) time and O(m+n+W) space; an
+all-acknowledged or empty-side bucket emits the empty packet and has sigma(Pi)=0.
+This word-operation bound assumes identities and exact arithmetic fit the stated
+word model; otherwise integer-operation bit costs must also be counted.
 
 **Proof.** Input validation and the row dictionary take O(m+n+e). A leaf's Bad
 set is its exception-column set. At an internal node it is the union of its
@@ -224,13 +235,17 @@ a fully pending column remains pending on every descendant leaf. A proper binary
 tree with L leaves has 2L-1 nodes. Therefore total column-propagation work is at
 most twice the number of output column memberships, plus their birth accounting.
 Copying the row intervals into output lists costs exactly the output row
-memberships. No sort is required: factor-member order is semantically irrelevant,
-and the checker compares column sets after validating uniqueness.
+memberships. Set propagation itself needs no ordering, but the actual artifact
+sorts every emitted right factor by the trusted right-dictionary rank. The total
+extra work is O(sigma(Pi)); the sorted lists occupy only the already counted
+output space.
 
 The checker independently recomputes Bad, Q and alpha, verifies each closed table
 row in child-first order, verifies precisely the root-reachable state closure,
-and reconstructs the same certified choices. Each operation has the same bound;
-the supplied physical dictionary is compared with the trusted one. Substituting
+and reconstructs the same certified choices. Before sequence comparison it
+independently sorts every expected right factor in trusted dictionary order and
+rejects repeated supplied members, so it has the same sigma(Pi) time term. The
+supplied physical dictionary is compared with the trusted one. Substituting
 t<=2d+1, d<=e and H=O(log(e+1)) proves the claim. Honest-packet space includes the
 retained source exception sets, the tables, the packet and traversal state. QED.
 
@@ -273,6 +288,15 @@ owns it. No exception ever becomes available at a leaf containing that exception
 Thus the reconstructed blocks are a partition. The independently recomputed
 cost and block count must match both the packet and the checked root value.
 Theorem 4 makes that value optimal. QED.
+
+The artifact checker returns a statistics dictionary with `checked=True` and
+recomputed counts; it does not return an immutable checked-packet object. The
+sequential caller proceeds only after successful return and then reads the
+producer packet's `blocks` field for installation. This benign same-thread
+contract is sufficient for the implemented experiment but is not a
+same-process time-of-check/time-of-use defense. Exact pair or row-bitset
+coefficient expansion is performed only by independent experimental observers,
+which may use O(mn) bits; it is not part of certificate checking.
 
 This is a proof-carrying optimization certificate, not a cryptographic attestation,
 a proof-assistant theorem, or an independently developed/reviewed system. The
@@ -343,21 +367,26 @@ For every H there are admitted positive integer weights and a support relation
 for which the ratio approaches H+1 arbitrarily closely.
 
 **Upper-bound proof.** For any column j, its canonical nodes are the maximal
-clusters on which j is fully pending. Every feasible packet must cover every
-one of those clusters with at least one block containing j. It cannot use an
-ancestor crossing an exception. Therefore the canonical packet has no more
-column memberships, separately for each j, than any feasible packet. Its total
-weighted column charge is consequently at most optimum's column charge.
+clusters on which j is fully pending. Every feasible packet must cover every one
+of those clusters with at least one block containing j. One block cannot cover
+rows from two different maximal clusters because their least common ancestor is
+not full for j. Therefore the canonical packet has no more column memberships,
+separately for each j, than any feasible packet. Its total weighted column
+charge is consequently at most optimum's column charge.
 
 A participating row occurs in at most H+1 canonical blocks, one per ancestor,
 whereas it must occur in at least one block of any exact packet. Thus canonical
-weighted row cost is at most (H+1) times optimum's weighted row cost. Finally,
-for each active canonical node v choose one of its newly safe columns j and
-one row i in A_v. In an optimum, the block owning (i,j) must be at v or a
-descendant: an ancestor cannot be fully pending for j by maximality of v.
-Charge v's header to this optimum block. An optimum block can receive charges
-only from its ancestor nodes, at most H+1 of them. This bounds canonical header
-cost by (H+1) times optimum's header cost. Add the three inequalities. QED.
+weighted row cost is at most (H+1) times optimum's weighted row cost.
+
+For each active canonical node v, choose a column j in its nonempty factor and a
+row i in A_v. Let u be the hierarchy node of the optimum block that owns (i,j).
+Because both A_u and A_v contain i, laminarity makes them comparable. A strict
+ancestor u of v would be full for j, contradicting maximality of the canonical
+full cluster v. Hence u=v or u is a descendant of v: the canonical node v is an
+ancestor of (or equal to) its selected optimum owner. Charge v's header to that
+owner. An optimum block at u can receive charges only from canonical ancestors
+on the root-to-u path, at most H+1 of them. This bounds canonical header cost by
+(H+1) times optimum's header cost. Add the three inequalities. QED.
 
 **Matching-family proof.** Use a perfect binary tree of height H with m=2^H
 singleton leaves. Introduce one column j_v for every tree node v; column j_v is
@@ -380,9 +409,15 @@ The ratio tends to H+1 as M increases. This support family has a dense exception
 set; it demonstrates a tight approximation boundary, not sparse-input performance
 or an observed production encoding. QED.
 
-For unit weights, the 2×3 support {(0,0),(0,2),(1,0),(1,1)} is already a strict
-example: taking the common column at the root costs 7 memberships, while the
-two leaf blocks cost 6. The optimum is not determined merely by input cardinality.
+For the 2×3 support {(0,0),(0,2),(1,0),(1,1)}, take h=0 and
+all row/column weights one. Canonical first-safe emits ({0,1},{0}) of cost 3 and
+({0},{2}), ({1},{1}) of cost 2 each, so CAN=7. The optimum emits
+({0},{0,2}) and ({1},{0,1}), each of cost 3, so OPT=6. The canonical root
+pairs (0,0) and (1,0) are owned by the optimum blocks at descendant leaves 0
+and 1, respectively; each canonical leaf block equals its optimum owner. Thus
+the canonical maximal full cluster is an ancestor of, or equal to, each mapped
+optimum owner. This verifies the owner mapping on the strict example; it does
+not refute or weaken the H+1 theorem.
 
 ## 9. Composition under drift and atomic installation
 

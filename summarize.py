@@ -58,9 +58,21 @@ def build_benchmark_summary(results: Path, target: Path) -> list[dict[str, Any]]
             item[f"{key}_median"] = clean_number(med)
             item[f"{key}_min"] = clean_number(low)
             item[f"{key}_max"] = clean_number(high)
-        opt = float(item["optimized_cost_median"])
-        can = float(item["canonical_cost_median"])
-        item["payload_ratio_median"] = can / opt if opt else 1.0
+        # Cost is deterministic for a generated support; timing repeats must not
+        # weight the payload statistic.  Collapse the nine nonrandom timing rows
+        # to their one support and the random rows to one pair per fixed seed.
+        support_pairs: dict[str, tuple[float, float]] = {}
+        for row in rows:
+            support_key = row["seed"] if family == "random" else "fixed"
+            pair = (float(row["canonical_cost"]), float(row["optimized_cost"]))
+            previous = support_pairs.setdefault(support_key, pair)
+            if previous != pair:
+                raise ValueError(
+                    f"inconsistent deterministic costs for {n}/{family}/{regime}/{support_key}"
+                )
+        paired_ratios = [canonical / optimized if optimized else 1.0
+                         for canonical, optimized in support_pairs.values()]
+        item["payload_ratio_median"] = clean_number(statistics.median(paired_ratios))
         output.append(item)
 
     target.parent.mkdir(parents=True, exist_ok=True)

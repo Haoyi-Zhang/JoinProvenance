@@ -10,6 +10,15 @@ from collections import defaultdict
 
 
 def verify_transfer(left,right,emitted,transfer,*,hierarchy,left_weights=None,right_weights=None,header=0):
+    """Validate ``transfer`` and return recomputed summary statistics.
+
+    The return value is an ordinary statistics dictionary whose ``checked``
+    field is ``True``.  It is not an immutable checked-packet capability and
+    does not bind the caller to the validated object after this call.  The
+    checker reconstructs the sparse normal form and its cost but deliberately
+    does not expand all row--column pairs; dense coefficient expansion belongs
+    to the independent bitset observer used by the finite experiments.
+    """
     def require(ok,message):
         if not ok:raise ValueError(message)
     left,right=tuple(left),tuple(right)
