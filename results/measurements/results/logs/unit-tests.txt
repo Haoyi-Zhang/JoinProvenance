@@ -1,0 +1,44 @@
+test_all_small_oracle_witnesses (test_contract.ContractTests.test_all_small_oracle_witnesses) ... ok
+test_all_small_sparse_bitset (test_contract.ContractTests.test_all_small_sparse_bitset) ... ok
+test_checker_detects_overlap_omission_replay (test_contract.ContractTests.test_checker_detects_overlap_omission_replay) ... ok
+test_crown_separation (test_contract.ContractTests.test_crown_separation) ... ok
+test_empty_and_invalid (test_contract.ContractTests.test_empty_and_invalid) ... ok
+test_empty_positive_factors_rejected (test_contract.ContractTests.test_empty_positive_factors_rejected) ... ok
+test_engine_rejects_nonpositive_sink_coefficients (test_contract.ContractTests.test_engine_rejects_nonpositive_sink_coefficients) ... ok
+test_exact_install_rejects_mutants (test_contract.ContractTests.test_exact_install_rejects_mutants) ... ok
+test_new_new_delta_owned_once (test_contract.ContractTests.test_new_new_delta_owned_once) ... ok
+test_partial_diagonal_width_bound (test_contract.ContractTests.test_partial_diagonal_width_bound) ... ok
+test_power_two_memberships (test_contract.ContractTests.test_power_two_memberships) ... ok
+test_random_encoded_paired_ratio_three_seed_fixture (test_contract.ContractTests.test_random_encoded_paired_ratio_three_seed_fixture) ... ok
+test_reproduction_compare_detects_missing_output (test_contract.ContractTests.test_reproduction_compare_detects_missing_output) ... ok
+test_row_baseline_validates_frontier (test_contract.ContractTests.test_row_baseline_validates_frontier) ... ok
+test_same_cardinality_and_lineage_not_enough (test_contract.ContractTests.test_same_cardinality_and_lineage_not_enough) ... ok
+test_stable_identity_and_atomic_rejection (test_contract.ContractTests.test_stable_identity_and_atomic_rejection) ... ok
+test_invalid_migration_on_empty_state (test_contract.SharedDagTests.test_invalid_migration_on_empty_state) ... ok
+test_shared_dag_coefficients_and_size (test_contract.SharedDagTests.test_shared_dag_coefficients_and_size) ... ok
+test_all_acknowledged_is_empty_packet (test_hierarchy.HierarchyTests.test_all_acknowledged_is_empty_packet) ... ok
+test_big_integers_exact (test_hierarchy.HierarchyTests.test_big_integers_exact) ... ok
+test_canonical_right_order_is_certified (test_hierarchy.HierarchyTests.test_canonical_right_order_is_certified) ... ok
+test_deep_supplied_tree_without_recursion (test_hierarchy.HierarchyTests.test_deep_supplied_tree_without_recursion) ... ok
+test_empty_factors_and_all_emitted (test_hierarchy.HierarchyTests.test_empty_factors_and_all_emitted) ... ok
+test_invalid_weights_and_frontier (test_hierarchy.HierarchyTests.test_invalid_weights_and_frontier) ... ok
+test_json_list_frontier (test_hierarchy.HierarchyTests.test_json_list_frontier) ... ok
+test_malformed_certificate_schema_rejected_cleanly (test_hierarchy.HierarchyTests.test_malformed_certificate_schema_rejected_cleanly) ... ok
+test_nonuniform_leaf_rejected (test_hierarchy.HierarchyTests.test_nonuniform_leaf_rejected) ... ok
+test_packet_cannot_choose_trusted_dictionary (test_hierarchy.HierarchyTests.test_packet_cannot_choose_trusted_dictionary) ... ok
+test_plain_integer_validation (test_hierarchy.HierarchyTests.test_plain_integer_validation) ... ok
+test_rejection_preserves_source_regions (test_hierarchy.HierarchyTests.test_rejection_preserves_source_regions) ... ok
+test_repeated_switch_then_new_match (test_hierarchy.HierarchyTests.test_repeated_switch_then_new_match) ... ok
+test_supplied_uniform_nonempty_holes (test_hierarchy.HierarchyTests.test_supplied_uniform_nonempty_holes) ... ok
+test_two_by_three_canonical_seven_optimum_six (test_hierarchy.HierarchyTests.test_two_by_three_canonical_seven_optimum_six) ... ok
+test_uniform_multirow_terminal (test_hierarchy.HierarchyTests.test_uniform_multirow_terminal) ... ok
+test_zero_frontier_preserves_trusted_right_order (test_hierarchy.HierarchyTests.test_zero_frontier_preserves_trusted_right_order) ... ok
+test_partition_total_exceeds_old_finite_sentinel (test_regressions.OracleIntegerTests.test_partition_total_exceeds_old_finite_sentinel) ... ok
+test_unreachable_support_remains_distinct_from_finite_cost (test_regressions.OracleIntegerTests.test_unreachable_support_remains_distinct_from_finite_cost) ... ok
+test_event_stream_comparison_is_byte_exact (test_regressions.RetainedOutputTests.test_event_stream_comparison_is_byte_exact) ... ok
+test_timeout_preserves_captured_stdout_and_stderr (test_regressions.RetainedOutputTests.test_timeout_preserves_captured_stdout_and_stderr) ... ok
+
+----------------------------------------------------------------------
+Ran 39 tests in 0.212s
+
+OK

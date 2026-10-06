@@ -1,0 +1,58 @@
+{
+  "oracle": {
+    "cases": 380928,
+    "mismatches": 0,
+    "canonical_improvement_cases": 157688,
+    "arbitrary_nonempty_column_subsets_enumerated": true
+  },
+  "benchmark": {
+    "aggregate_rows": 56,
+    "timing_rows": 504,
+    "support_instances": 36,
+    "weighted_instances": 72
+  },
+  "boundary": {
+    "dictionaries": 16,
+    "support_cases": 8192,
+    "mismatches": 0
+  },
+  "sequential": {
+    "traces": 96,
+    "checked_transitions": 9551,
+    "mismatches": 0
+  },
+  "certificate_controls": {
+    "fixtures": 15,
+    "detected": 15,
+    "mismatches": 0
+  },
+  "coefficient_controls": {
+    "cases": 8,
+    "exact_detected": 8,
+    "support_detected": 5,
+    "count_detected": 6,
+    "lineage_detected": 2
+  },
+  "shared_circuit_boundary": {
+    "instances": 10,
+    "expanded_instances": 4,
+    "mismatches": 0
+  },
+  "largest_sparse_run": {
+    "n": 32768,
+    "mismatches": 0,
+    "cpu_seconds": 8.010856743,
+    "wall_seconds": 8.014362041999988,
+    "peak_rss_kib": 775904
+  },
+  "clean_reproduction": {
+    "jobs": 97,
+    "all_exit_zero": true,
+    "child_cpu_seconds": 128.97849400000004,
+    "wall_seconds_sum": 129.40474307899999,
+    "peak_rss_kib": 775904,
+    "workers": 1
+  },
+  "scope": "Generated finite checks and exact small oracles; no production, private, device, service, or human data.",
+  "all_claim_critical_mismatch_counts_zero": true
+}

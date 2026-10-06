@@ -1,0 +1,9 @@
+{
+  "traces": 96,
+  "checked_transitions": 9551,
+  "mismatches": 0,
+  "cpu_seconds": 0.89176764,
+  "wall_seconds": 0.8921666100000039,
+  "peak_rss_kib": 19916,
+  "workers": 1
+}

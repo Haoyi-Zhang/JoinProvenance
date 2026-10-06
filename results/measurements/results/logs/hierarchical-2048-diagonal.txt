@@ -1,0 +1,1 @@
+{"timing_rows": 18, "mismatches": 0, "independent_instances": 1, "cpu_seconds": 5.252867685, "wall_seconds": 5.2541627800000015, "peak_rss_kib": 65180, "workers": 1}

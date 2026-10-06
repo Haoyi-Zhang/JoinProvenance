@@ -1,0 +1,22 @@
+{
+  "oracle_dimensions": [
+    3,
+    3
+  ],
+  "masks": 512,
+  "oracle_mismatches": 0,
+  "engine_transitions": 52,
+  "engine_mismatches": 0,
+  "negative_control": {
+    "n": 6,
+    "positive_width": 6,
+    "boolean_width": 4,
+    "support_equal": true,
+    "coefficients_equal": false,
+    "max_coefficient": 2
+  },
+  "wall_seconds": 0.13780550899999966,
+  "cpu_seconds": 0.136411341,
+  "peak_rss_kib": 16360,
+  "workers": 1
+}

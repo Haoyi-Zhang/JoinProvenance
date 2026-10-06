@@ -1,0 +1,13 @@
+{
+  "small_cases": 594,
+  "mismatches": 0,
+  "scale_n": 2048,
+  "scale_emissions": 2048,
+  "scale_blocks": 4094,
+  "scale_memberships": 45056,
+  "scale_seconds": 0.010138975000000272,
+  "wall_seconds": 0.02048164800000052,
+  "cpu_seconds": 0.020995141000000002,
+  "peak_rss_kib": 17952,
+  "workers": 1
+}

@@ -1,0 +1,9 @@
+{
+  "traces": 96,
+  "event_checks": 5225,
+  "mismatches": 0,
+  "cpu_seconds": 0.23435567200000001,
+  "wall_seconds": 0.23430182900000318,
+  "peak_rss_kib": 19764,
+  "workers": 1
+}

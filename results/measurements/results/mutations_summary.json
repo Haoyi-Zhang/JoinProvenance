@@ -1,0 +1,11 @@
+{
+  "cases": 8,
+  "exact_detected": 8,
+  "support_detected": 5,
+  "count_detected": 6,
+  "lineage_detected": 2,
+  "cpu_seconds": 0.0009993590000000052,
+  "wall_seconds": 0.0006717230000035102,
+  "peak_rss_kib": 17236,
+  "workers": 1
+}

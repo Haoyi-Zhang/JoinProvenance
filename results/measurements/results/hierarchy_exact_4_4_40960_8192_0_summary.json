@@ -1,0 +1,17 @@
+{
+  "cases": 24576,
+  "mismatches": 0,
+  "greedy_improved_cases": 15123,
+  "tree_index": 0,
+  "tree_count": 15,
+  "m": 4,
+  "n": 4,
+  "start": 40960,
+  "end": 49152,
+  "all_column_subsets_enumerated": true,
+  "weight_regimes": 3,
+  "cpu_seconds": 5.538856884,
+  "wall_seconds": 5.539691993999995,
+  "peak_rss_kib": 46308,
+  "workers": 1
+}

@@ -1,0 +1,1 @@
+{"fixtures": 15, "detected": 15, "mismatches": 0, "cpu_seconds": 0.002996085999999995, "wall_seconds": 0.0030930189999764934, "peak_rss_kib": 16928, "workers": 1}
