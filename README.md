@@ -83,7 +83,7 @@ python summarize.py --results results --analysis analysis \
 
 Expected outcomes:
 
-- 35 unit tests pass;
+- 39 unit and regression tests pass;
 - the example constructs and checks a valid packet and reports its blocks;
 - `summarize.py` exits zero, reports 380,928 exact-oracle cases and zero
   claim-critical mismatch, and rebuilds `analysis/summary.json` and
@@ -120,6 +120,23 @@ regenerated aggregate tables from the unchanged retained raw rows. Accordingly,
 the retained 97-job run; the four added regression tests belong to the focused
 recheck recorded in `analysis/focused-corrective-recheck.json`. Internal clean
 reproduction is not independent external review.
+
+The current oracle distinguishes unreachable supports from every admitted finite
+integer total; its per-candidate cost gate remains unchanged. The driver compares
+JSONL event files as bytes and retains captured output on timeout. The
+2026-10-06 Windows checks called deterministic functions directly, with an
+import-only POSIX-resource placeholder that raises on any resource API call and
+separate Windows process limits. They passed 39 tests, 29,184 weighted oracle
+instances, 8,192 boundary cases, 15 corruption fixtures, 16 sharp-height cases,
+and 96 traces with 9,551 transition checks plus replay. These are local checks,
+not a rerun of the full Linux manifest or the retained timing/scale measurements.
+
+The `scientific-checks.yml` workflow is configured for the flat repository root
+on Ubuntu 24.04, including pushes to `main`. It runs the 97-job manifest,
+bidirectional discrete comparison, and summary mismatch gates within a
+600-second whole-run deadline. Existing child limits remain 3 GiB and
+40 CPU / 44 wall seconds; raw outputs are uploaded even after a failed gate.
+The workflow has been prepared, not executed or published by these local checks.
 
 ## Claim-critical commands
 

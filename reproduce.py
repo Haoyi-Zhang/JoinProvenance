@@ -60,7 +60,7 @@ def compare(out):
                 return [{k:v for k,v in row.items() if not (k.endswith('_seconds') or k.endswith('_ns'))} for row in rows]
             ok=discrete(f)==discrete(expected)
         elif f.suffix=='.json':ok=normalized_json(json.loads(f.read_text()))==normalized_json(json.loads(expected.read_text()))
-        elif f.suffix=='.jsonl':ok=f.read_text()==expected.read_text()
+        elif f.suffix=='.jsonl':ok=f.read_bytes()==expected.read_bytes()
         else:continue
         compared.append(f.name)
         if not ok:failures.append(f.name)
@@ -83,6 +83,15 @@ def child_limits():
         os.sched_setaffinity(0,{min(os.sched_getaffinity(0))})
     resource.setrlimit(resource.RLIMIT_AS,(3*1024**3,3*1024**3))
     resource.setrlimit(resource.RLIMIT_CPU,(40,45))
+
+
+def timeout_log(exc):
+    """Retain the output captured before a bounded child timed out."""
+    def text(value):
+        if value is None:return ''
+        if isinstance(value,bytes):return value.decode('utf-8',errors='replace')
+        return value
+    return text(exc.stdout)+text(exc.stderr)+'\nWall timeout after 44 seconds.\n'
 
 
 def main():
@@ -108,7 +117,7 @@ def main():
             cp=subprocess.run(cmd,cwd=ROOT,capture_output=True,text=True,timeout=44,preexec_fn=child_limits)
             code=cp.returncode;log=cp.stdout+cp.stderr
         except subprocess.TimeoutExpired as exc:
-            code=124;log='Wall timeout after 44 seconds.\n'
+            code=124;log=timeout_log(exc)
         after=resource.getrusage(resource.RUSAGE_CHILDREN)
         row={'label':label,'exit_code':code,'wall_seconds':time.perf_counter()-t,
              'child_cpu_seconds':after.ru_utime+after.ru_stime-before.ru_utime-before.ru_stime,

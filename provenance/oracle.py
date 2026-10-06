@@ -6,12 +6,16 @@ Admitted inputs have at most sixteen possible pairs. Every target support
 mask is solved, including infeasible masks for restricted row dictionaries.
 """
 from .rectangles import Block, as_mask
+from math import inf
 
 def minimum_costs(left,right,row_sets,lw,rw,header):
     if len(left)*len(right)>16:raise ValueError('oracle admission limit: 16 cells')
     li={x:i for i,x in enumerate(left)};ri={x:i for i,x in enumerate(right)}
-    inf=(10**100,10**100); total=1<<(len(left)*len(right))
-    positive=[inf]*total;boolean=[inf]*total;positive[0]=boolean[0]=(0,0)
+    # A bound on one candidate does not bound a complete partition's cost.
+    # Keep every reachable cost as an exact integer; infinity marks only
+    # unreachable supports and cannot collide with an admitted finite total.
+    unreachable=(inf,inf); total=1<<(len(left)*len(right))
+    positive=[unreachable]*total;boolean=[unreachable]*total;positive[0]=boolean[0]=(0,0)
     candidates=[]
     for rows in row_sets:
         if not rows:continue
