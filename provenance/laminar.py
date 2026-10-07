@@ -146,6 +146,7 @@ def compile_transfer(left: tuple[int, ...], right: tuple[int, ...], emitted,
     values={}
     for v,node in enumerate(nodes):
       fixed=header+prefix[node.hi]-prefix[node.lo]
+      active_subtotal=None
       for k in needed[v]:
         if not node.children:
             result=(fixed+k,1) if k else (0,0);take=bool(k)
@@ -153,8 +154,10 @@ def compile_transfer(left: tuple[int, ...], right: tuple[int, ...], emitted,
             children=[values[c,k+new_weight[c]] for c in node.children]
             notake=(sum(x[0] for x in children),sum(x[1] for x in children))
             if k:
-                children=[values[c,new_weight[c]] for c in node.children]
-                take_cost=(fixed+k+sum(x[0] for x in children),1+sum(x[1] for x in children))
+                if active_subtotal is None:
+                    children=[values[c,new_weight[c]] for c in node.children]
+                    active_subtotal=(sum(x[0] for x in children),sum(x[1] for x in children))
+                take_cost=(fixed+k+active_subtotal[0],1+active_subtotal[1])
                 take=take_cost<=notake;result=take_cost if take else notake
             else:take=False;result=notake
         values[v,k]=result

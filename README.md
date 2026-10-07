@@ -89,6 +89,17 @@ Expected outcomes:
   claim-critical mismatch, and rebuilds `analysis/summary.json` and
   `analysis/benchmark-summary.csv`.
 
+The separate untimed compiler regression is available with
+`python -B tests/subtotal_regression.py`, or by its absolute path from any
+working directory. It checks the node-local reuse of the active child subtotal
+against a test-local literal arbitrary-column-subset partition oracle, exact
+coefficients, complete ancestry-state keys, ties, malformed certificates and
+sequential continuation. The separate checker is unchanged. All semantic state
+rows are retained and both branch values are still computed; no smaller state
+space or measured runtime gain is claimed. This explicit standalone check is
+additional to the 39-test inventory, not a rerun or rewrite of the 97-job results
+or older logs.
+
 ## Full clean reproduction
 
 The complete campaign comprises 97 serial jobs. The driver pins each scientific
