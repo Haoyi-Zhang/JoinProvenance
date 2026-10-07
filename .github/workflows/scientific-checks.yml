@@ -48,6 +48,16 @@ jobs:
           timeout --signal=TERM --kill-after=10s 180s \
             python -B -O tests/subtotal_regression.py \
             > scientific-output/subtotal-regression-optimized.log 2>&1
+      - name: Check checker subtotal reuse with independent literal partitions
+        shell: bash
+        run: |
+          set -euo pipefail
+          timeout --signal=TERM --kill-after=10s 120s \
+            python -B tests/checker_subtotal_regression.py \
+            > scientific-output/checker-subtotal-regression.log 2>&1
+          timeout --signal=TERM --kill-after=10s 120s \
+            python -B -O tests/checker_subtotal_regression.py \
+            > scientific-output/checker-subtotal-regression-optimized.log 2>&1
       - name: Retain raw outputs even when a scientific gate fails
         if: always()
         uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02

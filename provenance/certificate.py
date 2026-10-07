@@ -93,7 +93,7 @@ def verify_transfer(left,right,emitted,transfer,*,hierarchy,left_weights=None,ri
     for v in reached:
         born[v]=(set(right)-bad[v]) if v==root else (bad[parents[v]]-bad[v])
         bweight[v]=sum(rw[j] for j in born[v])
-    table={}; by_node=defaultdict(list)
+    table={}; by_node=defaultdict(list); cache_active=True
     required_fields={'node','weight','cost','blocks','take'}
     for row in transfer.states:
         require(isinstance(row,dict) and set(row)==required_fields,'invalid DP state schema')
@@ -107,6 +107,8 @@ def verify_transfer(left,right,emitted,transfer,*,hierarchy,left_weights=None,ri
         require(type(row['take']) is bool,'nonboolean decision')
         table[key]=row
         by_node[key[0]].append((key,row))
+        # Dict subclasses can implement stateful reads. Keep their original path.
+        if type(row) is not dict:cache_active=False
     def value(v,k):
         require((v,k) in table,'missing DP child state')
         row=table[v,k]
@@ -114,6 +116,7 @@ def verify_transfer(left,right,emitted,transfer,*,hierarchy,left_weights=None,ri
     # Children are checked first, so a consistent table is an induction certificate.
     for v in post:
         node=nodes[v]
+        active_subtotal=None
         for (sv,k),row in by_node[v]:
             if not node.children:
                 expected=(fixed[v]+k,1) if k else (0,0)
@@ -122,8 +125,16 @@ def verify_transfer(left,right,emitted,transfer,*,hierarchy,left_weights=None,ri
                 vals=[value(c,k+bweight[c]) for c in node.children]
                 no=(sum(x[0] for x in vals),sum(x[1] for x in vals))
                 if k:
-                    vals=[value(c,bweight[c]) for c in node.children]
-                    yes=(fixed[v]+k+sum(x[0] for x in vals),1+sum(x[1] for x in vals))
+                    if not cache_active:
+                        # Preserve the original read and arithmetic order too.
+                        vals=[value(c,bweight[c]) for c in node.children]
+                        yes=(fixed[v]+k+sum(x[0] for x in vals),1+sum(x[1] for x in vals))
+                    else:
+                        # Initialize only after this state's inactive child reads.
+                        if active_subtotal is None:
+                            vals=[value(c,bweight[c]) for c in node.children]
+                            active_subtotal=(sum(x[0] for x in vals),sum(x[1] for x in vals))
+                        yes=(fixed[v]+k+active_subtotal[0],1+active_subtotal[1])
                     take=yes<=no;expected=yes if take else no
                 else:take=False;expected=no
             require(value(v,k)==expected and row['take']==take,'false optimality recurrence')

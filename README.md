@@ -94,7 +94,10 @@ The separate untimed compiler regression is available with
 working directory. It checks the node-local reuse of the active child subtotal
 against a test-local literal arbitrary-column-subset partition oracle, exact
 coefficients, complete ancestry-state keys, ties, malformed certificates and
-sequential continuation. The separate checker is unchanged. All semantic state
+sequential continuation. The checker independently reuses each node's active-child
+subtotal after its first positive state's inactive checks, while retaining the
+original read path for dict-subclass rows; the additional untimed regression is
+`python -B tests/checker_subtotal_regression.py`. All semantic state
 rows are retained and both branch values are still computed; no smaller state
 space or measured runtime gain is claimed. This explicit standalone check is
 additional to the 39-test inventory, not a rerun or rewrite of the 97-job results
