@@ -177,8 +177,14 @@ The executable exhaustive checks are finite checks, not machine-checked proofs
 of unbounded theorems. General statements are supported by the hand argument in
 `proofs/transfer.md`; code checks attack small counterexamples, integration
 paths, and implementation errors. The benchmark method columns are `time.perf_counter` elapsed intervals. The
-large scale-job wall/RSS summaries additionally include the independent bitset
-observer and surrounding job work. It establishes neither a production speedup nor a claim that
+scale-summary wall intervals additionally include the independent bitset observer
+and surrounding campaign-body work, but exclude imports/resource setup and result
+serialization. Their peak RSS is the process-wide maximum, not a method-only
+measurement. The retained 97-job ledgers instead time complete child invocations;
+their child-CPU totals exclude the parent runner, and their summed command wall
+time excludes parent work between commands. These are different measurement
+scopes, not alternative counts of scientific instances. The evidence establishes
+neither a production speedup nor a claim that
 payload size equals peak memory or network traffic.
 
 The optimizer's exactness holds only for the supplied laminar hierarchy and the
