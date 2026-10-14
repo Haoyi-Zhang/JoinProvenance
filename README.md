@@ -129,16 +129,12 @@ python summarize.py --results reproduction-results --analysis reproduction-analy
   --ledger reproduction-results/run-ledger.csv
 ```
 
-The comparator checks 222 generated files in both directions. With the repaired
-same-hierarchy pilot it intentionally reports one discrete difference:
-`laminar_pilot.json` has 2,700 first-safe improvement observations, not the
-historical 3,332; the other discrete fields and all 9,348 pilot oracle instances
-are unchanged. The previous pilot compared different trees. Do not suppress
-this difference or overwrite `results/laminar_pilot.json`. The current normal
-and `-O` runs agree on all 222 discrete outputs; 221 agree with historical data.
-There are no new/missing scientific filenames. CPU/wall/RSS fields are excluded
-from deterministic equality comparison. A historical `--compare` exit of one
-is therefore expected ONLY with exactly that reported pilot difference.
+The comparator checks all 222 generated files in both directions. The supplied
+pilot reference uses the same hierarchy for both methods and records 2,700
+first-safe improvement observations across 9,348 oracle instances. Normal and
+optimized pilot executions agree on every non-timing field, as does the full
+97-job Linux run. CPU/wall/RSS fields are excluded from deterministic equality;
+scientific differences and missing files fail the comparison.
 
 The delivered `reproduction/` directory records the retained fresh-extraction
 run that completed all 97 jobs with exit code zero, compared all 222 files with

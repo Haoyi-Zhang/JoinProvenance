@@ -1,7 +1,7 @@
 {
   "oracle_cases": 9348,
   "mismatches": 0,
-  "greedy_improvement_observations": 3332,
+  "greedy_improvement_observations": 2700,
   "first_example": {
     "m": 2,
     "n": 3,
@@ -15,10 +15,10 @@
   "scale_blocks": 2730,
   "scale_states": 40963,
   "scale_height": 11,
-  "compile_seconds": 0.09613583899999867,
-  "certificate_seconds": 0.1857593499998984,
-  "cpu_seconds": 1.740317211,
-  "wall_seconds": 1.7408478030001788,
-  "peak_rss_kib": 123820,
+  "compile_seconds": 0.06940700000086508,
+  "certificate_seconds": 0.12273409999943397,
+  "cpu_seconds": 1.625,
+  "wall_seconds": 1.7938329999997222,
+  "peak_rss_kib": 55712,
   "workers": 1
 }
