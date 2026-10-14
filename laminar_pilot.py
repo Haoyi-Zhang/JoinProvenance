@@ -1,4 +1,6 @@
-import os,sys,time,resource,json
+from provenance.gates import require
+from provenance.resources import apply_limits, peak_rss_kib
+import os,sys,time,json
 from pathlib import Path
 import argparse
 _parser=argparse.ArgumentParser()
@@ -9,9 +11,9 @@ from collections import Counter
 sys.path.insert(0,str(Path(__file__).resolve().parent))
 from provenance.laminar import *
 from provenance.certificate import verify_transfer
+from provenance.hierarchy_campaign import greedy
 from provenance.rectangles import *
-os.sched_setaffinity(0,{min(os.sched_getaffinity(0))})
-resource.setrlimit(resource.RLIMIT_AS,(3*1024**3,3*1024**3))
+apply_limits()
 t=time.perf_counter();cpu=time.process_time();cases=0;improvements=0;example=None
 # Independent exact weighted shortest-path oracle, with arbitrary allowed column subsets.
 for m,n in [(1,1),(2,3),(3,3),(4,3)]:
@@ -37,10 +39,11 @@ for m,n in [(1,1),(2,3),(3,3),(4,3)]:
    e=full-set(mask_pairs(mask,m,n))
    packet=compile_transfer(tuple(range(m)),tuple(range(n)),e,left_weights=lw,right_weights=rw,header=header,singleton_leaves=True)
    verify_transfer(tuple(range(m)),tuple(range(n)),e,packet,hierarchy=build_hierarchy(tuple(range(m)),e,singleton_leaves=True),left_weights=lw,right_weights=rw,header=header)
-   assert polynomial(packet.blocks)==Counter({p:1 for p in full-e})
-   assert (packet.cost,len(packet.blocks))==dp[mask]
-   # Compare with the existing first-safe compiler only where the hierarchy agrees.
-   baseline=sparse_complement(tuple(range(m)),tuple(range(n)),e)
+   require((polynomial(packet.blocks)==Counter({p:1 for p in full-e})), 'laminar_pilot.py: scientific check 1')
+   require(((packet.cost,len(packet.blocks))==dp[mask]), 'laminar_pilot.py: scientific check 2')
+   # The canonical baseline receives exactly the same fixed hierarchy.
+   baseline=greedy(tuple(range(m)),tuple(range(n)),e,
+                   build_hierarchy(tuple(range(m)),e,singleton_leaves=True))
    bc=weighted_cost(baseline,lw,rw,header)
    if packet.cost<bc:
     improvements+=1
@@ -55,6 +58,6 @@ result={'oracle_cases':cases,'mismatches':0,'greedy_improvement_observations':im
         'scale_states':packet.metrics['states'],'scale_height':packet.metrics['height'],
         'compile_seconds':compile_s,'certificate_seconds':verify_s,
         'cpu_seconds':time.process_time()-cpu,'wall_seconds':time.perf_counter()-t,
-        'peak_rss_kib':resource.getrusage(resource.RUSAGE_SELF).ru_maxrss,'workers':1}
+        'peak_rss_kib':peak_rss_kib(),'workers':1}
 (_output/'laminar_pilot.json').write_text(json.dumps(result,indent=2)+'\n')
 print(json.dumps(result,indent=2))

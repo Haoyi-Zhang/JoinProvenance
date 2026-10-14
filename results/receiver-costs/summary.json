@@ -1,0 +1,135 @@
+{
+  "project_id": "P052",
+  "environment": "environment.json",
+  "campaigns": {
+    "normal": {
+      "jobs": 97,
+      "unit_methods": 54,
+      "all_exit_zero": true,
+      "child_cpu_seconds": 135.96875,
+      "command_wall_seconds_sum": 141.49607099994319,
+      "peak_working_set_kib": 828620,
+      "historical_compared_files": 222,
+      "historical_identical_discrete_files": 221,
+      "changed_pilot_field": {
+        "old": 3332,
+        "current": 2700
+      },
+      "oracle": {
+        "cases": 380928,
+        "mismatches": 0,
+        "canonical_improvement_cases": 157688,
+        "arbitrary_nonempty_column_subsets_enumerated": true
+      }
+    },
+    "optimized": {
+      "jobs": 97,
+      "unit_methods": 54,
+      "all_exit_zero": true,
+      "child_cpu_seconds": 152.5625,
+      "command_wall_seconds_sum": 162.15586069991696,
+      "peak_working_set_kib": 829376,
+      "historical_compared_files": 222,
+      "historical_identical_discrete_files": 221,
+      "changed_pilot_field": {
+        "old": 3332,
+        "current": 2700
+      },
+      "oracle": {
+        "cases": 380928,
+        "mismatches": 0,
+        "canonical_improvement_cases": 157688,
+        "arbitrary_nonempty_column_subsets_enumerated": true
+      }
+    }
+  },
+  "normal_optimized_compared_files": 222,
+  "normal_optimized_discrete_differences": 0,
+  "receiver_measurements": {
+    "normal": {
+      "unique_weighted_inputs": 72,
+      "unique_supports": 36,
+      "paired_repeats": 216,
+      "method_timing_rows": 648,
+      "output_cost_gain": 0,
+      "output_disagreements": 0,
+      "certificate_over_direct_total_median": 0.8242503810148593,
+      "certificate_over_recompile_total_median": 1.3362900218196436,
+      "certificate_faster_than_direct": 173,
+      "certificate_faster_than_recompile": 20
+    },
+    "optimized": {
+      "unique_weighted_inputs": 72,
+      "unique_supports": 36,
+      "paired_repeats": 216,
+      "method_timing_rows": 648,
+      "output_cost_gain": 0,
+      "output_disagreements": 0,
+      "certificate_over_direct_total_median": 0.8278221656396498,
+      "certificate_over_recompile_total_median": 1.3407155711987706,
+      "certificate_faster_than_direct": 185,
+      "certificate_faster_than_recompile": 23
+    }
+  },
+  "by_size": {
+    "normal": [
+      {
+        "n": 32,
+        "certificate_over_direct_median": 1.0217587455005108,
+        "certificate_over_recompile_median": 1.3287259620655627
+      },
+      {
+        "n": 128,
+        "certificate_over_direct_median": 0.6267197892029315,
+        "certificate_over_recompile_median": 1.3277227194695
+      },
+      {
+        "n": 512,
+        "certificate_over_direct_median": 0.26527073680884644,
+        "certificate_over_recompile_median": 1.337457139136386
+      },
+      {
+        "n": 2048,
+        "certificate_over_direct_median": 0.06792029999638663,
+        "certificate_over_recompile_median": 1.3986150700271576
+      }
+    ],
+    "optimized": [
+      {
+        "n": 32,
+        "certificate_over_direct_median": 0.9668501209426333,
+        "certificate_over_recompile_median": 1.3296922004029657
+      },
+      {
+        "n": 128,
+        "certificate_over_direct_median": 0.6690509033240095,
+        "certificate_over_recompile_median": 1.3482738075826473
+      },
+      {
+        "n": 512,
+        "certificate_over_direct_median": 0.2726142335191847,
+        "certificate_over_recompile_median": 1.3202417727394902
+      },
+      {
+        "n": 2048,
+        "certificate_over_direct_median": 0.06756472676791697,
+        "certificate_over_recompile_median": 1.3768187202202204
+      }
+    ]
+  },
+  "counting": "-O repeats the same finite domains; no doubling of independent inputs",
+  "timing_scope": "Given frozen source, hierarchy and weights: compilation, encoding, decoding, receiver validation and tuple installation. Source/hierarchy/context assembly precedes timing; not a full executor barrier or physical-design cost.",
+  "resource_stop": {
+    "command": "receiver_costs.py --n 2048 (unchunked)",
+    "exit_code": 3221225540,
+    "retained_in_private_receipt": true,
+    "counted_complete": false,
+    "recovery": "same 18 inputs in one-input chunks"
+  },
+  "limitations": [
+    "no database-native engine or transport",
+    "no per-method allocation peak",
+    "same research process; not independent authorship",
+    "not a global representation optimum"
+  ]
+}

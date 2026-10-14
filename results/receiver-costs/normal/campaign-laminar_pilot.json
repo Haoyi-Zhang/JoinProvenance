@@ -1,0 +1,24 @@
+{
+  "oracle_cases": 9348,
+  "mismatches": 0,
+  "greedy_improvement_observations": 2700,
+  "first_example": {
+    "m": 2,
+    "n": 3,
+    "mask": 29,
+    "header": 0,
+    "optimal_cost": 6,
+    "greedy_cost": 7
+  },
+  "scale_n": 2048,
+  "scale_cost": 45056,
+  "scale_blocks": 2730,
+  "scale_states": 40963,
+  "scale_height": 11,
+  "compile_seconds": 0.06802839998272248,
+  "certificate_seconds": 0.11472479999065399,
+  "cpu_seconds": 1.5625,
+  "wall_seconds": 1.6299665999831632,
+  "peak_rss_kib": 54484,
+  "workers": 1
+}

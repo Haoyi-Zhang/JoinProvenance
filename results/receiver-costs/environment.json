@@ -1,0 +1,33 @@
+{
+  "project_id": "P052",
+  "utc": "2026-10-14T04:44:11.909538+00:00",
+  "os": "Windows-11-10.0.28000-SP0",
+  "python": "3.12.14 (main, Aug 25 2026, 14:01:42) [MSC v.1944 64 bit (AMD64)]",
+  "cpu_cim": "12th Gen Intel(R) Core(TM) i7-12700KF",
+  "physical_cores_cim": 12,
+  "logical_processors_cim": 20,
+  "visible_memory_kib_cim": 33388720,
+  "current_worker_affinity_mask": 1,
+  "system_affinity_mask": 1048575,
+  "native_windows_job": true,
+  "job_handle_created": true,
+  "limit_policy": {
+    "active_processes": 1,
+    "committed_process_bytes": 3221225472,
+    "process_user_cpu_seconds": 40,
+    "parent_wall_deadline_seconds": 44
+  },
+  "metric_definitions": {
+    "cpu": "process user+kernel self time at command exit",
+    "peak": "GetProcessMemoryInfo PeakWorkingSetSize /1024; not method allocation"
+  },
+  "worker_peak_rss_kib": 26336,
+  "scientific_dependencies": "Python standard library only",
+  "posix_or_linux_execution": false,
+  "unavailable": [
+    "database engine deployment",
+    "network throughput",
+    "per-method allocation peak",
+    "independent external replication"
+  ]
+}

@@ -1,0 +1,16 @@
+{
+  "n": 2048,
+  "first": 0,
+  "count": 1,
+  "weighted_inputs": 1,
+  "paired_repeats": 3,
+  "method_rows": 9,
+  "same_output_mismatches": 0,
+  "certificate_over_direct_total_median": 0.06700695962949049,
+  "certificate_faster_pairs": 3,
+  "certificate_over_recompile_total_median": 1.5040376801096367,
+  "certificate_faster_than_recompile_pairs": 0,
+  "direct_omits_producer_certificate": true,
+  "independent_authorship": false,
+  "timing_scope": "compile+encode+decode+verify+local tuple install; no transport/executor"
+}

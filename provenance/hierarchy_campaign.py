@@ -1,5 +1,7 @@
 """Bounded prospective checks of the certified hierarchical transfer method."""
-import argparse,csv,json,os,resource,time,random,copy
+from .gates import require
+from .resources import apply_limits, peak_rss_kib
+import argparse,csv,json,os,time,random,copy
 from pathlib import Path
 from dataclasses import asdict
 from collections import Counter
@@ -7,6 +9,7 @@ from .laminar import compile_transfer,build_hierarchy,Hierarchy,TreeNode,weighte
 from .certificate import verify_transfer
 from .rectangles import Block,polynomial,verify_partition_bits,mask_pairs
 from .oracle import minimum_costs
+from .direct import verify_direct
 from .regions import RegionEngine
 from .engine import TupleRecord
 ROOT=Path(__file__).resolve().parent.parent
@@ -15,19 +18,33 @@ def greedy(left,right,holes,hierarchy):
     # Direct canonical maximal-safe-node traversal in the SAME dictionary.
     blocked={i:set() for i in left}
     for i,j in holes:blocked[i].add(j)
-    bad={};out=[]
-    for v,node in enumerate(hierarchy.nodes):
+    bad={};out=[];post=[];seen=set()
+    if hierarchy.root < 0 or not right:return out
+    pending=[(hierarchy.root,False)]
+    while pending:
+        v,exiting=pending.pop()
+        if exiting:post.append(v);continue
+        if type(v) is not int or not 0<=v<len(hierarchy.nodes) or v in seen:
+            raise ValueError('invalid supplied hierarchy')
+        seen.add(v);node=hierarchy.nodes[v]
+        pending.append((v,True))
+        pending.extend((child,False) for child in reversed(node.children))
+    if len(seen)!=len(hierarchy.nodes):raise ValueError('unreachable tree node')
+    # Dictionary identifiers need not encode traversal order.
+    for v in post:
+        node=hierarchy.nodes[v]
         bad[v]=set()
         if node.children:
             for child in node.children:bad[v].update(bad[child])
         else:
             for i in hierarchy.order[node.lo:node.hi]:bad[v].update(blocked[i])
-    def visit(v,columns):
+    pending=[(hierarchy.root,set(right))]
+    while pending:
+        v,columns=pending.pop()
         node=hierarchy.nodes[v];safe=columns-bad[v]
         if safe:out.append(Block(hierarchy.order[node.lo:node.hi],tuple(safe)))
         rest=columns-safe
-        for child in node.children:visit(child,rest)
-    if hierarchy.root>=0 and right:visit(hierarchy.root,set(right))
+        pending.extend((child,rest) for child in reversed(node.children))
     return out
 
 def binary_hierarchies(labels):
@@ -68,13 +85,14 @@ def exact(m,n,start,count,tree_index):
             holes=full-set(mask_pairs(mask,m,n))
             packet=compile_transfer(left,right,holes,hierarchy=tree,left_weights=lw,right_weights=rw,header=h)
             verify_transfer(left,right,holes,packet,hierarchy=tree,left_weights=lw,right_weights=rw,header=h)
-            assert polynomial(packet.blocks)==Counter({p:1 for p in full-holes})
-            assert (packet.cost,len(packet.blocks))==pos[mask]
+            verify_direct(left,right,holes,packet,hierarchy=tree,left_weights=lw,right_weights=rw,header=h)
+            require((polynomial(packet.blocks)==Counter({p:1 for p in full-holes})), 'provenance/hierarchy_campaign.py: scientific check 1')
+            require(((packet.cost,len(packet.blocks))==pos[mask]), 'provenance/hierarchy_campaign.py: scientific check 2')
             # With positive entry weights, every optimal Boolean cover is disjoint.
-            assert pos[mask]==boo[mask]
+            require((pos[mask]==boo[mask]), 'provenance/hierarchy_campaign.py: scientific check 3')
             gb=greedy(left,right,holes,tree);gc=weighted_cost(gb,lw,rw,h)
-            assert packet.cost<=gc
-            assert gc<=(packet.metrics['height']+1)*packet.cost if packet.cost else gc==0
+            require((packet.cost<=gc), 'provenance/hierarchy_campaign.py: scientific check 4')
+            require((gc<=(packet.metrics['height']+1)*packet.cost if packet.cost else gc==0), 'provenance/hierarchy_campaign.py: scientific check 5')
             rows.append({'regime':name,'mask':mask,'cost':packet.cost,'blocks':len(packet.blocks),
                          'greedy_cost':gc,'greedy_blocks':len(gb),'states':len(packet.states)})
             cases+=1;better+=packet.cost<gc
@@ -91,7 +109,7 @@ def boundary():
         laminar=all(not(set(a)&set(b)) or set(a)<=set(b) or set(b)<=set(a) for a in family for b in family)
         pos,boo=minimum_costs(left,right,family,dict.fromkeys(left,1),dict.fromkeys(right,1),20)
         gaps=[mask for mask in range(512) if pos[mask][0]>boo[mask][0]]
-        assert bool(gaps)==(not laminar)
+        require((bool(gaps)==(not laminar)), 'provenance/hierarchy_campaign.py: scientific check 6')
         records.append({'family_mask':family_mask,'laminar':int(laminar),'support_masks':512,
                         'strict_gap_masks':len(gaps),'first_gap_mask':gaps[0] if gaps else ''})
     return records,{'dictionaries':16,'support_cases':8192,'mismatches':0}
@@ -105,8 +123,8 @@ def gap(height,weight):
     verify_transfer(left,right,holes,packet,hierarchy=tree,left_weights=lw,right_weights=rw)
     baseline=greedy(left,right,holes,tree)
     gc=weighted_cost(baseline,lw,rw)
-    assert gc==weight*m*(height+1)+(2*m-1)
-    if weight>height:assert packet.cost==m*(weight+height+1)
+    require((gc==weight*m*(height+1)+(2*m-1)), 'provenance/hierarchy_campaign.py: scientific check 7')
+    if weight>height:require((packet.cost==m*(weight+height+1)), 'provenance/hierarchy_campaign.py: scientific check 8')
     verify_partition_bits(left,right,holes,packet.blocks)
     rows=[{'height':height,'m':m,'n':len(right),'holes':len(holes),'left_weight':weight,
            'optimum':packet.cost,'greedy':gc,'ratio':gc/packet.cost,'states':len(packet.states)}]
@@ -145,7 +163,7 @@ def benchmarks(n,family):
                 if rep==0:
                     verify_partition_bits(left,right,holes,packet.blocks)
                     verify_partition_bits(left,right,holes,baseline)
-                gc=weighted_cost(baseline,lw,rw,h);assert packet.cost<=gc
+                gc=weighted_cost(baseline,lw,rw,h);require((packet.cost<=gc), 'provenance/hierarchy_campaign.py: scientific check 9')
                 records.append({'n':n,'family':family,'seed':seed,'regime':regime,'repeat':rep,
                     'holes':len(holes),'optimized_cost':packet.cost,'canonical_cost':gc,
                     'optimized_blocks':len(packet.blocks),'canonical_blocks':len(baseline),
@@ -175,7 +193,7 @@ def mutations():
         except (ValueError,KeyError,TypeError,IndexError):detected=True
         else:detected=False
         records.append({'case':name,'detected':int(detected)})
-        assert detected
+        require((detected), 'provenance/hierarchy_campaign.py: scientific check 10')
     check('missing-block',lambda p:p.blocks.pop())
     check('duplicate-block',lambda p:p.blocks.append(p.blocks[0]))
     check('false-cost',lambda p:setattr(p,'cost',p.cost+1))
@@ -230,7 +248,7 @@ def stream():
         # Each final emission is observed, rather than only a final batch check.
         for pair in sorted(engine.pending()):
             sink[engine.emit(pair)]+=1;log({'kind':'emit','pair':pair})
-        assert sink==engine.reference()
+        require((sink==engine.reference()), 'provenance/hierarchy_campaign.py: scientific check 11')
         records.append({'seed':seed,'drift':drift,'switches':switches,'final_left':lid,'final_right':rid,'output_pairs':len(sink)})
     return records,{'traces':len(records),'checked_transitions':checks,'mismatches':0},events
 
@@ -239,21 +257,20 @@ def replay(path):
     for line in Path(path).read_text().splitlines():
         e=json.loads(line);key=e['seed'],e['drift']
         if key!=current:
-            if engine is not None:assert sink==engine.reference()
+            if engine is not None:require((sink==engine.reference()), 'provenance/hierarchy_campaign.py: scientific check 12')
             current=key;engine=RegionEngine();sink=Counter();traces+=1
         if e['kind']=='insert':engine.insert_epoch([TupleRecord(**x) for x in e['left']],[TupleRecord(**x) for x in e['right']],e['bound'])
         elif e['kind']=='emit':sink[engine.emit(tuple(e['pair']))]+=1
         elif e['kind']=='migrate':engine.migrate(e['method'])
         else:raise ValueError('unknown event')
         engine.check(sink);checks+=1
-    assert sink==engine.reference()
+    require((sink==engine.reference()), 'provenance/hierarchy_campaign.py: scientific check 13')
     return [],{'traces':traces,'checked_transitions':checks,'mismatches':0}
 
 def main():
     ap=argparse.ArgumentParser();ap.add_argument('mode',choices=['exact','boundary','gap','bench','scale','mutations','stream','replay'])
     ap.add_argument('args',nargs='*');ap.add_argument('--out',default=str(ROOT/'results'))
-    a=ap.parse_args();os.sched_setaffinity(0,{min(os.sched_getaffinity(0))})
-    resource.setrlimit(resource.RLIMIT_AS,(3*1024**3,3*1024**3));resource.setrlimit(resource.RLIMIT_CPU,(40,45))
+    a=ap.parse_args();apply_limits()
     wall=time.perf_counter();cpu=time.process_time();inputs=None
     if a.mode=='exact':rows,meta=exact(*map(int,a.args))
     elif a.mode=='boundary':rows,meta=boundary()
@@ -264,14 +281,14 @@ def main():
     elif a.mode=='stream':rows,meta,inputs=stream()
     elif a.mode=='replay':rows,meta=replay(a.args[0])
     meta.update(cpu_seconds=time.process_time()-cpu,wall_seconds=time.perf_counter()-wall,
-                peak_rss_kib=resource.getrusage(resource.RUSAGE_SELF).ru_maxrss,workers=1)
+                peak_rss_kib=peak_rss_kib(),workers=1)
     out=Path(a.out);out.mkdir(parents=True,exist_ok=True)
     name='hierarchy_'+a.mode+('_'+'_'.join(Path(x).stem for x in a.args) if a.args else '')
     if rows:
         with (out/(name+'.csv')).open('w',newline='') as f:
             w=csv.DictWriter(f,fieldnames=list(rows[0]));w.writeheader();w.writerows(rows)
     if inputs is not None:
-        with (out/(name+('_events' if a.mode=='stream' else '_inputs')+'.jsonl')).open('w') as f:
+        with (out/(name+('_events' if a.mode=='stream' else '_inputs')+'.jsonl')).open('w',newline='\n') as f:
             for x in inputs:f.write(json.dumps(x,separators=(',',':'))+'\n')
     (out/(name+'_summary.json')).write_text(json.dumps(meta,indent=2)+'\n')
     print(json.dumps(meta))

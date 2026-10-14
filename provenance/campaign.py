@@ -1,6 +1,8 @@
 """Bounded, resumable evidence campaign. No network or third-party packages."""
 from __future__ import annotations
-import argparse, csv, json, math, os, random, resource, statistics, time
+from .gates import require
+from .resources import apply_limits, peak_rss_kib
+import argparse, csv, json, math, os, random, statistics, time
 from collections import Counter
 from pathlib import Path
 from .rectangles import *
@@ -12,14 +14,7 @@ OUT = ROOT/'results'
 
 
 def limits():
-    if hasattr(os,'sched_setaffinity'):
-        os.sched_setaffinity(0,{min(os.sched_getaffinity(0))})
-    if hasattr(resource,'RLIMIT_AS'):
-        cap = 3*1024**3
-        old = resource.getrlimit(resource.RLIMIT_AS)
-        maximum = cap if old[1] == resource.RLIM_INFINITY else min(cap,old[1])
-        resource.setrlimit(resource.RLIMIT_AS,(maximum,maximum))
-    resource.setrlimit(resource.RLIMIT_CPU,(40,45))
+    apply_limits()
 
 
 def save_csv(path,rows,fields=None):
@@ -37,16 +32,16 @@ def exact(m,n):
         pending=set(mask_pairs(mask,m,n));emitted=full-pending
         blocks=sparse_complement(tuple(range(m)),tuple(range(n)),emitted)
         expanded=polynomial(blocks)
-        assert expanded==Counter({p:1 for p in pending})
+        require((expanded==Counter({p:1 for p in pending})), 'provenance/campaign.py: scientific check 1')
         rank=rational_rank(mask,m,n)
         rp=len(row_partition(pending));sp=len(blocks)
-        assert rank<=positive[mask]<=min(rp,m,n)
-        assert boolean[mask]<=positive[mask]
+        require((rank<=positive[mask]<=min(rp,m,n)), 'provenance/campaign.py: scientific check 2')
+        require((boolean[mask]<=positive[mask]), 'provenance/campaign.py: scientific check 3')
         d=len({i for i,j in emitted}); e=len(emitted)
         h=(d-1).bit_length() if d else 0
         w=sum(b.memberships for b in blocks)
-        assert sp <= (2*d if d else 1)
-        assert w<=m+2*n+(d+2*e)*h
+        require((sp <= (2*d if d else 1)), 'provenance/campaign.py: scientific check 4')
+        require((w<=m+2*n+(d+2*e)*h), 'provenance/campaign.py: scientific check 5')
         rows.append({'mask':mask,'pending':mask.bit_count(),'emitted':e,'positive_width':positive[mask],
                      'boolean_width':boolean[mask],'rational_rank':rank,'row_width':rp,
                      'sparse_width':sp,'sparse_memberships':w})
@@ -92,9 +87,9 @@ def bench(n, *, scale_only=False):
                     blocks=fn(a,b,emitted)
                     cpu=time.process_time_ns()-c;elapsed=time.perf_counter_ns()-t
                     pairs=sum(len(x.left)*len(x.right) for x in blocks)
-                    assert pairs==n*n-len(emitted)
+                    require((pairs==n*n-len(emitted)), 'provenance/campaign.py: scientific check 6')
                     if n<=128:
-                        assert polynomial(blocks)==Counter({(i,j):1 for i in a for j in b if (i,j) not in emitted_set})
+                        require((polynomial(blocks)==Counter({(i,j):1 for i in a for j in b if (i,j) not in emitted_set})), 'provenance/campaign.py: scientific check 7')
                     if repeat==0:
                         verify_partition_bits(a,b,emitted,blocks)
                     rows.append({'n':n,'family':family,'seed':seed,'repeat':repeat,'method':method,
@@ -105,7 +100,7 @@ def bench(n, *, scale_only=False):
     name=f'scale_{n}' if scale_only else f'bench_{n}'
     save_csv(OUT/(name+'.csv'),rows)
     # Exact inputs, not an external generator or a seed alone.
-    with (OUT/(name+'_inputs.jsonl')).open('w') as f:
+    with (OUT/(name+'_inputs.jsonl')).open('w',newline='\n') as f:
         for item in source:f.write(json.dumps(item,separators=(',',':'))+'\n')
     return {'n':n,'records':len(rows),'families':families,'mismatches':0}
 
@@ -139,7 +134,7 @@ def stream(seed_start,seed_count):
                         events.append(dict(prefix,event='emit',pair=pair))
                 method=['sparse','row','column'][(epoch+seed)%3]
                 old=engine.pending();engine.migrate(method)
-                assert engine.pending()==old
+                require((engine.pending()==old), 'provenance/campaign.py: scientific check 8')
                 engine.check(sink);transitions+=1
                 events.append(dict(prefix,event='migrate',method=method))
                 max_regions=max(max_regions,len(engine.regions))
@@ -147,13 +142,13 @@ def stream(seed_start,seed_count):
             for pair in sorted(engine.pending()):
                 sink[engine.emit(pair)]+=1
             engine.check(sink);transitions+=1
-            assert sink==engine.reference()
+            require((sink==engine.reference()), 'provenance/campaign.py: scientific check 9')
             events.append(dict(prefix,event='drain'))
             results.append(dict(prefix,epochs=16,transitions=transitions,left=len(engine.left),right=len(engine.right),
                                 output_terms=len(sink),max_regions=max_regions,max_memberships=max_mem,mismatches=0))
     name=f'stream_{seed_start}_{seed_count}'
     save_csv(OUT/(name+'.csv'),results)
-    with (OUT/(name+'_events.jsonl')).open('w') as f:
+    with (OUT/(name+'_events.jsonl')).open('w',newline='\n') as f:
         for item in events:f.write(json.dumps(item,separators=(',',':'))+'\n')
     return {'traces':len(results),'transitions':sum(r['transitions'] for r in results),'mismatches':0}
 
@@ -175,7 +170,7 @@ def replay(path):
             for pair in sorted(e.pending()):s[e.emit(pair)]+=1
         else:raise ValueError('unknown event')
         e.check(s);checks+=1
-    for key,e in engines.items():assert sinks[key]==e.reference()
+    for key,e in engines.items():require((sinks[key]==e.reference()), 'provenance/campaign.py: scientific check 10')
     return {'traces':len(engines),'event_checks':checks,'mismatches':0}
 
 
@@ -197,7 +192,7 @@ def mutations():
              'count_detects':sum(good.values())!=sum(bad.values()),
              'input_lineage_detects':lineage(good)!=lineage(bad),
              'monomial_support_detects':set(good)!=set(bad),'exact_coefficients_detect':good!=bad}
-        assert row['exact_coefficients_detect']
+        require((row['exact_coefficients_detect']), 'provenance/campaign.py: scientific check 11')
         rows.append(row)
         raw.append({'case':name,'expected':[[*p,v] for p,v in sorted(good.items())],
                     'actual':[[*p,v] for p,v in sorted(bad.items())]})
@@ -214,11 +209,11 @@ def dag_boundary():
         begin=time.perf_counter_ns()
         circuit=crown_circuit(n)
         elapsed=time.perf_counter_ns()-begin
-        assert circuit.gates==5*n-7
+        require((circuit.gates==5*n-7), 'provenance/campaign.py: scientific check 12')
         if n<=16:
             expected=Counter({tuple(sorted((f'x{i}',f'y{j}'))):1
                               for i in range(n) for j in range(n) if i!=j})
-            assert circuit.expand()==expected
+            require((circuit.expand()==expected), 'provenance/campaign.py: scientific check 13')
         rows.append({'n':n,'input_nodes':2*n,'binary_gates':circuit.gates,
                      'wires':circuit.wires,'total_nodes':len(circuit.nodes),
                      'constructor_wall_ns':elapsed,'expanded_check':int(n<=16)})
@@ -252,7 +247,7 @@ def main():
     elif args.command=='dag':result=dag_boundary();name='dag_boundary'
     else:result=mutations();name='mutations'
     result.update(cpu_seconds=time.process_time()-cpu,wall_seconds=time.perf_counter()-start,
-                  peak_rss_kib=resource.getrusage(resource.RUSAGE_SELF).ru_maxrss,workers=1)
+                  peak_rss_kib=peak_rss_kib(),workers=1)
     (OUT/(name+'_summary.json')).write_text(json.dumps(result,indent=2)+'\n')
     print(json.dumps(result,indent=2))
 

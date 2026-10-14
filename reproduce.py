@@ -5,7 +5,7 @@ The ledger records measurements, not hashes or environment fingerprints.
 Each child has a 44-second wall deadline. Campaign children additionally pin one
 CPU and enforce a 3 GiB address-space / 40-second CPU limit internally.
 """
-import argparse,csv,json,os,resource,subprocess,sys,time
+import argparse,csv,json,os,subprocess,sys,time
 from pathlib import Path
 ROOT=Path(__file__).resolve().parent
 
@@ -78,11 +78,13 @@ def compare(out):
     return not failures and not missing and not retained_missing
 
 
-def child_limits():
-    if hasattr(os,'sched_setaffinity'):
-        os.sched_setaffinity(0,{min(os.sched_getaffinity(0))})
-    resource.setrlimit(resource.RLIMIT_AS,(3*1024**3,3*1024**3))
-    resource.setrlimit(resource.RLIMIT_CPU,(40,45))
+def process_metrics(log):
+    """Self-reported process CPU and peak, not campaign-body timers."""
+    prefix='P052_PROCESS_METRICS '
+    matches=[json.loads(line[len(prefix):]) for line in log.splitlines() if line.startswith(prefix)]
+    if len(matches)!=1:
+        raise ValueError('missing or repeated child process resource receipt')
+    return matches[0]
 
 
 def timeout_log(exc):
@@ -111,17 +113,20 @@ def main():
     for label,args in remaining[:a.next]:
         args=[s.replace('@OUT@',str(out)) for s in args]
         if (len(args)>1 and args[1] in {'provenance.campaign','provenance.hierarchy_campaign'}) or args[0] in {'pilot.py','sparse_pilot.py','laminar_pilot.py'}:args+=['--out',str(out)]
-        cmd=[sys.executable,*args]
-        before=resource.getrusage(resource.RUSAGE_CHILDREN);t=time.perf_counter()
+        cmd=[sys.executable,'-B',*(['-O'] if sys.flags.optimize else []),
+             '-m','provenance.resources','--',*args]
+        t=time.perf_counter()
         try:
-            cp=subprocess.run(cmd,cwd=ROOT,capture_output=True,text=True,timeout=44,preexec_fn=child_limits)
+            cp=subprocess.run(cmd,cwd=ROOT,capture_output=True,text=True,timeout=44)
             code=cp.returncode;log=cp.stdout+cp.stderr
         except subprocess.TimeoutExpired as exc:
             code=124;log=timeout_log(exc)
-        after=resource.getrusage(resource.RUSAGE_CHILDREN)
+        measured=process_metrics(log) if code==0 else {}
         row={'label':label,'exit_code':code,'wall_seconds':time.perf_counter()-t,
-             'child_cpu_seconds':after.ru_utime+after.ru_stime-before.ru_utime-before.ru_stime,
-             'cumulative_child_peak_rss_kib':after.ru_maxrss,'workers':1}
+             'child_cpu_seconds':measured.get('cpu_seconds',''),
+             'cumulative_child_peak_rss_kib':measured.get('peak_rss_kib',''),
+             'workers':1,'measurement_basis':'child self CPU and per-child peak; historical ledger used parent rusage',
+             'optimization':sys.flags.optimize,'platform':sys.platform}
         records.append(row)
         (out/'logs').mkdir(exist_ok=True);(out/'logs'/(label+'.txt')).write_text(log)
         with ledger.open('w',newline='') as f:

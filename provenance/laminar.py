@@ -9,6 +9,7 @@ The DP remembers only the total weight of inherited full columns. At each node
 an optimal normal form either takes every available full column or takes none.
 """
 from __future__ import annotations
+from .gates import require
 from dataclasses import dataclass
 from collections import Counter
 from .rectangles import Block
@@ -98,36 +99,41 @@ def compile_transfer(left: tuple[int, ...], right: tuple[int, ...], emitted,
     selected = hierarchy if hierarchy is not None else build_hierarchy(
         left, holes, singleton_leaves=singleton_leaves)
     order,nodes,root=selected.order,list(selected.nodes),selected.root
-    # The compiler accepts only postorder interval trees. The separate checker
-    # additionally revalidates every node and binds to the caller's dictionary.
-    if len(order)!=len(left) or set(order)!=set(left) or root!=len(nodes)-1:
+    # Preserve trusted node IDs; traversal order is not dictionary numbering.
+    # The checker independently validates this same physical dictionary.
+    if (len(order)!=len(left) or set(order)!=set(left) or type(root) is not int
+            or not 0<=root<len(nodes)):
         raise ValueError('invalid supplied hierarchy')
-    reached=set(); pending=[(root,0,len(order))]
+    reached=set();post=[];pending=[(root,0,len(order),False)]
     while pending:
-        v,lo,hi=pending.pop()
-        if v in reached or not 0<=v<len(nodes):raise ValueError('invalid tree node')
+        v,lo,hi,exit=pending.pop()
+        if exit:post.append(v);continue
+        if type(v) is not int or v in reached or not 0<=v<len(nodes):raise ValueError('invalid tree node')
         reached.add(v); node=nodes[v]
         if (node.lo,node.hi)!=(lo,hi) or not lo<hi:raise ValueError('invalid interval')
         if len(node.children) not in (0,2):raise ValueError('binary hierarchy required')
+        pending.append((v,lo,hi,True))
         if node.children:
             a,b=node.children
-            if not 0<=a<v or not 0<=b<v:raise ValueError('postorder required')
+            if any(type(c) is not int or not 0<=c<len(nodes) for c in (a,b)):
+                raise ValueError('invalid child node')
             mid=nodes[a].hi
-            pending.extend([(b,mid,hi),(a,lo,mid)])
+            pending.extend([(b,mid,hi,False),(a,lo,mid,False)])
         elif any(forbidden[i]!=forbidden[order[lo]] for i in order[lo:hi]):
             raise ValueError('nonuniform terminal group')
     if len(reached)!=len(nodes):raise ValueError('unreachable tree node')
     prefix=[0]
     for i in order: prefix.append(prefix[-1]+lw[i])
-    bad=[]; q=[set() for _ in nodes]; new_weight=[0 for _ in nodes]
-    for v,node in enumerate(nodes):
+    bad=[set() for _ in nodes]; q=[set() for _ in nodes]; new_weight=[0 for _ in nodes]
+    for v in post:
+        node=nodes[v]
         if not node.children:
             # The only multi-row leaf created by the builder is unaffected.
             sets=[forbidden[i] for i in order[node.lo:node.hi]]
-            assert all(s==sets[0] for s in sets)
-            bad.append(set(sets[0]))
+            require((all(s==sets[0] for s in sets)), 'provenance/laminar.py: scientific check 1')
+            bad[v]=set(sets[0])
         else:
-            bad.append(bad[node.children[0]]|bad[node.children[1]])
+            bad[v]=bad[node.children[0]]|bad[node.children[1]]
     q[root]=rs-bad[root]
     for v,node in enumerate(nodes):
         for child in node.children:q[child]=bad[v]-bad[child]
@@ -144,7 +150,8 @@ def compile_transfer(left: tuple[int, ...], right: tuple[int, ...], emitted,
             pending.append((c,k+new_weight[c]))
             if k:pending.append((c,new_weight[c]))
     values={}
-    for v,node in enumerate(nodes):
+    for v in post:
+      node=nodes[v]
       fixed=header+prefix[node.hi]-prefix[node.lo]
       active_subtotal=None
       for k in needed[v]:
@@ -172,10 +179,10 @@ def compile_transfer(left: tuple[int, ...], right: tuple[int, ...], emitted,
                                 tuple(sorted(available,key=right_order.__getitem__))))
             available=set()
         for child in reversed(node.children):
-            assert not available.intersection(q[child])
+            require((not available.intersection(q[child])), 'provenance/laminar.py: scientific check 2')
             pending.append((child,available|q[child]))
     actual=sum(header+sum(lw[i] for i in b.left)+sum(rw[j] for j in b.right) for b in blocks)
-    assert actual==optimum[0] and len(blocks)==optimum[1]
+    require((actual==optimum[0] and len(blocks)==optimum[1]), 'provenance/laminar.py: scientific check 3')
     depth=[0]*len(nodes);pending=[root]
     while pending:
         v=pending.pop()

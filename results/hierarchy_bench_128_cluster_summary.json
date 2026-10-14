@@ -2,8 +2,8 @@
   "timing_rows": 18,
   "mismatches": 0,
   "independent_instances": 1,
-  "cpu_seconds": 0.013425366999999966,
-  "wall_seconds": 0.016387492000831116,
-  "peak_rss_kib": 93612,
+  "cpu_seconds": 0.015625,
+  "wall_seconds": 0.011373400000593392,
+  "peak_rss_kib": 20640,
   "workers": 1
 }

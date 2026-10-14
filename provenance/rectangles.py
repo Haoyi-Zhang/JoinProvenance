@@ -5,6 +5,7 @@ Cartesian product without an internal exclusion predicate.  Input storage,
 bitmap encodings, DAG gate complexity and physical bytes are not block width.
 """
 from __future__ import annotations
+from .gates import require
 from collections import Counter
 from dataclasses import dataclass
 from itertools import combinations
@@ -137,9 +138,9 @@ def optimal_blocks(mask: int, m: int, n: int, *, boolean=False) -> list[Block]:
     expanded = polynomial(out)
     target = Counter({p:1 for p in mask_pairs_check})
     if boolean:
-        assert set(expanded) == set(target)
+        require((set(expanded) == set(target)), 'provenance/rectangles.py: scientific check 1')
     else:
-        assert expanded == target
+        require((expanded == target), 'provenance/rectangles.py: scientific check 2')
     return out
 
 

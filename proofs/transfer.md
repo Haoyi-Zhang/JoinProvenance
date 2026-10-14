@@ -307,6 +307,52 @@ its trust boundary. A resource-admission policy must also bound input/certificat
 sizes before accepting arbitrary external data; this artifact uses only owned,
 bounded generated tests and has no external service endpoint.
 
+### Node-numbering invariance and honest completeness
+
+The physical dictionary may number its nodes in any order. A rooted interval
+tree induces an explicit child-first traversal independently of those numbers.
+The compiler validates reachability/unique parents and interval partitioning
+with an enter/exit stack, records that traversal, and evaluates Bad sets and DP
+values in it. It retains the original indices in every certificate field.
+
+For any bijection pi on node indices, replace each child index and root index
+by its pi-image and move each node record to its pi-image position. Induction
+on subtree height gives Bad'(pi(v))=Bad(v), Q'(pi(v))=Q(v), and
+F'_{pi(v)}(k)=F_v(k). The active-on-complete-tie rule therefore selects the
+same clusters/columns, and top-down reconstruction emits the same blocks and
+cost. Only the certificate's node keys change. This proves that array numbering
+does not restrict the honest-completeness domain or alter the optimum. The
+implementation tests all 120 numberings of one five-node tree, not 120 distinct
+workloads or a new optimization theorem.
+
+### Same-guarantee direct receiver
+
+Let Full(v) be the columns pending on every row of A_v, computed independently
+as intersections of literal row-complement bitsets. Let u be the last active
+strict ancestor of v, or a sentinel with Full(u)=empty. Ancestor fullness is
+monotone: Full(u) is a subset of Full(v). Consequently the available set is
+Full(v) minus Full(u). If v is inactive, both children retain u as their
+boundary; if v is active, both receive boundary v. A uniform leaf emits its
+available set, or nothing if empty. Price the two alternatives with the same
+additive row/header/column weights and the same lexicographic tie rule.
+
+The all-or-none exchange and subtree induction from Theorem 4 apply to these
+literal-set states. On a path, Full(v) minus Full(u) is exactly the disjoint
+birth suffix used by the sparse recurrence; thus both produce the same
+deterministic packet and optimum. `direct.py` computes these ancestor states
+without calling the sparse compiler or certificate checker and without reading
+producer DP rows. Its bitsets and per-set weighted scans do not have the sparse
+compiler's complexity claim. A second baseline simply reruns the trusted sparse
+compiler and compares the exact serialized packet; it shares the producer code.
+
+Both receivers establish output semantics and optimality for the same trusted
+context. Their packet-only wire protocol omits the producer's state table and
+decision map, so they do NOT verify assertions in a discarded certificate.
+The certificate protocol additionally checks those supplied fields. This is
+not a succinctness or checker-speed theorem. The end-to-end measurement prices
+each protocol's actual compilation, encoding, decoding, checking and local
+installation, and separately reports common retained-context JSON size.
+
 ## 7. Why laminarity matters
 
 Let F be any finite family of nonempty row sets containing every singleton row.
