@@ -1,6 +1,6 @@
 # Certified hierarchical provenance transfer artifact
 
-This standalone repository accompanies the anonymous internal research paper
+This standalone repository accompanies the paper
 *Certified Hierarchical Transfer of Partially Emitted Join Provenance*. It
 implements and checks the paper's **restricted** contract:
 
@@ -88,7 +88,7 @@ Run from the repository root:
 ```bash
 python -m unittest discover -s tests -v
 python example.py
-python summarize.py --results results --analysis analysis \
+python -B summarize.py --results results --analysis ../joinprovenance-analysis \
   --ledger reproduction/run-ledger.csv
 ```
 
@@ -97,8 +97,12 @@ Expected outcomes:
 - 54 discovered unit and regression methods pass in normal and optimized modes;
 - the example constructs and checks a valid packet and reports its blocks;
 - `summarize.py` exits zero, reports 380,928 exact-oracle cases and zero
-  claim-critical mismatch, and rebuilds `analysis/summary.json` and
-  `analysis/benchmark-summary.csv`.
+  claim-critical mismatch, and writes `summary.json` and
+  `benchmark-summary.csv` in the selected output directory.
+
+Choose a fresh writable analysis directory outside the checkout, replacing
+`../joinprovenance-analysis` as needed. This leaves the retained `analysis/`
+summaries and reproduction measurements unchanged.
 
 The separate untimed compiler regression is available with
 `python -B tests/subtotal_regression.py`, or by its absolute path from any
@@ -176,9 +180,9 @@ on Ubuntu 24.04, including pushes to `main`. It runs the 97-job manifest,
 bidirectional discrete comparison, and summary mismatch gates within a
 600-second whole-run deadline. Existing child limits remain 3 GiB and
 40 CPU / 44 wall seconds; raw outputs are uploaded even after a failed gate.
-The workflow has been prepared, not executed or published by these local checks.
-Its historical comparison step now needs the independently reviewed pilot
-reference transition above; local success is not a claim that public CI passes.
+Local checks and hosted CI are separate executions. Inspect GitHub Actions for
+the exact current commit; a configured workflow or a local success is not a
+claim that that commit's public CI passes.
 
 ## Same-information receiver costs
 
