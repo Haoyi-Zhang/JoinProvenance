@@ -94,7 +94,8 @@ python -B summarize.py --results results --analysis ../joinprovenance-analysis \
 
 Expected outcomes:
 
-- 54 discovered unit and regression methods pass in normal and optimized modes;
+- 57 unit and regression methods are discovered; run the suite in normal and
+  optimized modes;
 - the example constructs and checks a valid packet and reports its blocks;
 - `summarize.py` exits zero, reports 380,928 exact-oracle cases and zero
   claim-critical mismatch, and writes `summary.json` and
