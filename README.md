@@ -12,10 +12,9 @@ implements and checks the paper's **restricted** contract:
 - a sequential quiescent migration barrier with atomic installation;
 - insertions and acknowledgments only, with retained base identities.
 
-It does **not** claim a production database implementation, global
-representation or hierarchy optimality, arbitrary SQL, deletion/concurrency/
-crash semantics, a shared-circuit optimizer, or performance on external
-workloads.
+The optimizer minimizes explicit packet payload for that supplied hierarchy.
+The execution model is sequential and insertion-only; certificate bytes,
+retained base state and temporary residency are separate from the objective.
 
 ## Repository map
 
@@ -41,6 +40,8 @@ workloads.
 - `results/receiver-costs/` — measured protocol rows, exact inputs, local
   environment, campaign receipts, and source bindings for that comparison.
 - `example.py` — one compact end-to-end transfer and certificate example.
+- `figures/draw_schematics.py` — optional Matplotlib renderer for the five
+  direct, embedded-font vector schematics in the companion manuscript.
 
 The implementation uses only the Python standard library. All data are
 locally generated, deterministic under the recorded parameters, and contain no
