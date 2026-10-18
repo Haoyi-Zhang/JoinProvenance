@@ -288,3 +288,7 @@ their publisher license in the separate paper package and are not part of this
 standalone repository. Scholarly and official resources are inventoried in
 `external_resources.csv`; none is required at runtime and none has been modified
 or redistributed here.
+
+## Portable path notation
+
+Published execution records use `<PYTHON_ROOT>`, `<NODE_ROOT>`, `<RUNTIME_ROOT>` and `<PROJECTS_ROOT>` for machine-local installation and workspace prefixes. These are path aliases, not literal directories; substitute the corresponding local roots when replaying a command. Recorded interpreter and dependency versions, inputs, measurements and outcomes are unchanged. File inventories bind the published portable serializations; any `recorded_` identity denotes the pre-normalization bytes.

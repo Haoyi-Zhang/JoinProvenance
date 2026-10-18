@@ -2,7 +2,7 @@
   "commands": [
     {
       "command": [
-        "D:\\CodexProjects\\2026-07-13\\new-chat-4\\completion_workspace\\library_review\\pdf-env\\Scripts\\python.exe",
+        "<PROJECTS_ROOT>\\2026-07-13\\new-chat-4\\completion_workspace\\library_review\\pdf-env\\Scripts\\python.exe",
         "-B",
         "-m",
         "provenance.hierarchy_campaign",
@@ -10,16 +10,16 @@
         "32",
         "empty",
         "--out",
-        "D:\\CodexProjects\\2026-07-13\\new-chat-4\\completion_workspace\\library_review\\private\\branch_handoffs\\branch-3\\P052\\current-benchmark"
+        "<PROJECTS_ROOT>\\2026-07-13\\new-chat-4\\completion_workspace\\library_review\\private\\branch_handoffs\\branch-3\\P052\\current-benchmark"
       ],
       "exit": 0,
       "started_utc": "2026-10-14T13:17:18.680577+00:00",
-      "log": "D:\\CodexProjects\\2026-07-13\\new-chat-4\\completion_workspace\\library_review\\private\\branch_handoffs\\branch-3\\P052\\current-benchmark\\hierarchy_bench_32_empty.log",
+      "log": "<PROJECTS_ROOT>\\2026-07-13\\new-chat-4\\completion_workspace\\library_review\\private\\branch_handoffs\\branch-3\\P052\\current-benchmark\\hierarchy_bench_32_empty.log",
       "log_sha256": "f79039de8ed83e421501e2e4f525d04a1fa87cb9ac879e09f35e776c41a14117"
     },
     {
       "command": [
-        "D:\\CodexProjects\\2026-07-13\\new-chat-4\\completion_workspace\\library_review\\pdf-env\\Scripts\\python.exe",
+        "<PROJECTS_ROOT>\\2026-07-13\\new-chat-4\\completion_workspace\\library_review\\pdf-env\\Scripts\\python.exe",
         "-B",
         "-m",
         "provenance.hierarchy_campaign",
@@ -27,16 +27,16 @@
         "32",
         "diagonal",
         "--out",
-        "D:\\CodexProjects\\2026-07-13\\new-chat-4\\completion_workspace\\library_review\\private\\branch_handoffs\\branch-3\\P052\\current-benchmark"
+        "<PROJECTS_ROOT>\\2026-07-13\\new-chat-4\\completion_workspace\\library_review\\private\\branch_handoffs\\branch-3\\P052\\current-benchmark"
       ],
       "exit": 0,
       "started_utc": "2026-10-14T13:17:18.757410+00:00",
-      "log": "D:\\CodexProjects\\2026-07-13\\new-chat-4\\completion_workspace\\library_review\\private\\branch_handoffs\\branch-3\\P052\\current-benchmark\\hierarchy_bench_32_diagonal.log",
+      "log": "<PROJECTS_ROOT>\\2026-07-13\\new-chat-4\\completion_workspace\\library_review\\private\\branch_handoffs\\branch-3\\P052\\current-benchmark\\hierarchy_bench_32_diagonal.log",
       "log_sha256": "7b273977374a944e8fcd73b1129ae46338dd38af435eda9535c0ac99492a07e9"
     },
     {
       "command": [
-        "D:\\CodexProjects\\2026-07-13\\new-chat-4\\completion_workspace\\library_review\\pdf-env\\Scripts\\python.exe",
+        "<PROJECTS_ROOT>\\2026-07-13\\new-chat-4\\completion_workspace\\library_review\\pdf-env\\Scripts\\python.exe",
         "-B",
         "-m",
         "provenance.hierarchy_campaign",
@@ -44,16 +44,16 @@
         "32",
         "row",
         "--out",
-        "D:\\CodexProjects\\2026-07-13\\new-chat-4\\completion_workspace\\library_review\\private\\branch_handoffs\\branch-3\\P052\\current-benchmark"
+        "<PROJECTS_ROOT>\\2026-07-13\\new-chat-4\\completion_workspace\\library_review\\private\\branch_handoffs\\branch-3\\P052\\current-benchmark"
       ],
       "exit": 0,
       "started_utc": "2026-10-14T13:17:18.857841+00:00",
-      "log": "D:\\CodexProjects\\2026-07-13\\new-chat-4\\completion_workspace\\library_review\\private\\branch_handoffs\\branch-3\\P052\\current-benchmark\\hierarchy_bench_32_row.log",
+      "log": "<PROJECTS_ROOT>\\2026-07-13\\new-chat-4\\completion_workspace\\library_review\\private\\branch_handoffs\\branch-3\\P052\\current-benchmark\\hierarchy_bench_32_row.log",
       "log_sha256": "c19053b8520f0e3b81a77955ac8232c9655dc543007479fbad07d407f840a57b"
     },
     {
       "command": [
-        "D:\\CodexProjects\\2026-07-13\\new-chat-4\\completion_workspace\\library_review\\pdf-env\\Scripts\\python.exe",
+        "<PROJECTS_ROOT>\\2026-07-13\\new-chat-4\\completion_workspace\\library_review\\pdf-env\\Scripts\\python.exe",
         "-B",
         "-m",
         "provenance.hierarchy_campaign",
@@ -61,16 +61,16 @@
         "32",
         "column",
         "--out",
-        "D:\\CodexProjects\\2026-07-13\\new-chat-4\\completion_workspace\\library_review\\private\\branch_handoffs\\branch-3\\P052\\current-benchmark"
+        "<PROJECTS_ROOT>\\2026-07-13\\new-chat-4\\completion_workspace\\library_review\\private\\branch_handoffs\\branch-3\\P052\\current-benchmark"
       ],
       "exit": 0,
       "started_utc": "2026-10-14T13:17:18.980898+00:00",
-      "log": "D:\\CodexProjects\\2026-07-13\\new-chat-4\\completion_workspace\\library_review\\private\\branch_handoffs\\branch-3\\P052\\current-benchmark\\hierarchy_bench_32_column.log",
+      "log": "<PROJECTS_ROOT>\\2026-07-13\\new-chat-4\\completion_workspace\\library_review\\private\\branch_handoffs\\branch-3\\P052\\current-benchmark\\hierarchy_bench_32_column.log",
       "log_sha256": "fe5569d669e9f9dbc5fe1e6e3453fcb3ccfb55bbe7d3e945c8609910251a2af9"
     },
     {
       "command": [
-        "D:\\CodexProjects\\2026-07-13\\new-chat-4\\completion_workspace\\library_review\\pdf-env\\Scripts\\python.exe",
+        "<PROJECTS_ROOT>\\2026-07-13\\new-chat-4\\completion_workspace\\library_review\\pdf-env\\Scripts\\python.exe",
         "-B",
         "-m",
         "provenance.hierarchy_campaign",
@@ -78,16 +78,16 @@
         "32",
         "band",
         "--out",
-        "D:\\CodexProjects\\2026-07-13\\new-chat-4\\completion_workspace\\library_review\\private\\branch_handoffs\\branch-3\\P052\\current-benchmark"
+        "<PROJECTS_ROOT>\\2026-07-13\\new-chat-4\\completion_workspace\\library_review\\private\\branch_handoffs\\branch-3\\P052\\current-benchmark"
       ],
       "exit": 0,
       "started_utc": "2026-10-14T13:17:19.079644+00:00",
-      "log": "D:\\CodexProjects\\2026-07-13\\new-chat-4\\completion_workspace\\library_review\\private\\branch_handoffs\\branch-3\\P052\\current-benchmark\\hierarchy_bench_32_band.log",
+      "log": "<PROJECTS_ROOT>\\2026-07-13\\new-chat-4\\completion_workspace\\library_review\\private\\branch_handoffs\\branch-3\\P052\\current-benchmark\\hierarchy_bench_32_band.log",
       "log_sha256": "86b9a4b717e2065bc80c475556ab5a702cfcc5289f1ced3b5a65cea18efedad7"
     },
     {
       "command": [
-        "D:\\CodexProjects\\2026-07-13\\new-chat-4\\completion_workspace\\library_review\\pdf-env\\Scripts\\python.exe",
+        "<PROJECTS_ROOT>\\2026-07-13\\new-chat-4\\completion_workspace\\library_review\\pdf-env\\Scripts\\python.exe",
         "-B",
         "-m",
         "provenance.hierarchy_campaign",
@@ -95,16 +95,16 @@
         "32",
         "cluster",
         "--out",
-        "D:\\CodexProjects\\2026-07-13\\new-chat-4\\completion_workspace\\library_review\\private\\branch_handoffs\\branch-3\\P052\\current-benchmark"
+        "<PROJECTS_ROOT>\\2026-07-13\\new-chat-4\\completion_workspace\\library_review\\private\\branch_handoffs\\branch-3\\P052\\current-benchmark"
       ],
       "exit": 0,
       "started_utc": "2026-10-14T13:17:19.185415+00:00",
-      "log": "D:\\CodexProjects\\2026-07-13\\new-chat-4\\completion_workspace\\library_review\\private\\branch_handoffs\\branch-3\\P052\\current-benchmark\\hierarchy_bench_32_cluster.log",
+      "log": "<PROJECTS_ROOT>\\2026-07-13\\new-chat-4\\completion_workspace\\library_review\\private\\branch_handoffs\\branch-3\\P052\\current-benchmark\\hierarchy_bench_32_cluster.log",
       "log_sha256": "9d3c89035880e147245f0bc3efcb37d5e482c9b8d65de74e4dd89fb7ae42eece"
     },
     {
       "command": [
-        "D:\\CodexProjects\\2026-07-13\\new-chat-4\\completion_workspace\\library_review\\pdf-env\\Scripts\\python.exe",
+        "<PROJECTS_ROOT>\\2026-07-13\\new-chat-4\\completion_workspace\\library_review\\pdf-env\\Scripts\\python.exe",
         "-B",
         "-m",
         "provenance.hierarchy_campaign",
@@ -112,16 +112,16 @@
         "32",
         "random",
         "--out",
-        "D:\\CodexProjects\\2026-07-13\\new-chat-4\\completion_workspace\\library_review\\private\\branch_handoffs\\branch-3\\P052\\current-benchmark"
+        "<PROJECTS_ROOT>\\2026-07-13\\new-chat-4\\completion_workspace\\library_review\\private\\branch_handoffs\\branch-3\\P052\\current-benchmark"
       ],
       "exit": 0,
       "started_utc": "2026-10-14T13:17:19.286444+00:00",
-      "log": "D:\\CodexProjects\\2026-07-13\\new-chat-4\\completion_workspace\\library_review\\private\\branch_handoffs\\branch-3\\P052\\current-benchmark\\hierarchy_bench_32_random.log",
+      "log": "<PROJECTS_ROOT>\\2026-07-13\\new-chat-4\\completion_workspace\\library_review\\private\\branch_handoffs\\branch-3\\P052\\current-benchmark\\hierarchy_bench_32_random.log",
       "log_sha256": "a220bed8cb2f13f7f017d5c1a5e5303d6791bf55f521dc55b0e042c878caea07"
     },
     {
       "command": [
-        "D:\\CodexProjects\\2026-07-13\\new-chat-4\\completion_workspace\\library_review\\pdf-env\\Scripts\\python.exe",
+        "<PROJECTS_ROOT>\\2026-07-13\\new-chat-4\\completion_workspace\\library_review\\pdf-env\\Scripts\\python.exe",
         "-B",
         "-m",
         "provenance.hierarchy_campaign",
@@ -129,16 +129,16 @@
         "128",
         "empty",
         "--out",
-        "D:\\CodexProjects\\2026-07-13\\new-chat-4\\completion_workspace\\library_review\\private\\branch_handoffs\\branch-3\\P052\\current-benchmark"
+        "<PROJECTS_ROOT>\\2026-07-13\\new-chat-4\\completion_workspace\\library_review\\private\\branch_handoffs\\branch-3\\P052\\current-benchmark"
       ],
       "exit": 0,
       "started_utc": "2026-10-14T13:17:19.379705+00:00",
-      "log": "D:\\CodexProjects\\2026-07-13\\new-chat-4\\completion_workspace\\library_review\\private\\branch_handoffs\\branch-3\\P052\\current-benchmark\\hierarchy_bench_128_empty.log",
+      "log": "<PROJECTS_ROOT>\\2026-07-13\\new-chat-4\\completion_workspace\\library_review\\private\\branch_handoffs\\branch-3\\P052\\current-benchmark\\hierarchy_bench_128_empty.log",
       "log_sha256": "7529bda3bfbb13d4ce4c61c05cb2c1bd13f35149b81aba1c4cf7fd47edd5a8b3"
     },
     {
       "command": [
-        "D:\\CodexProjects\\2026-07-13\\new-chat-4\\completion_workspace\\library_review\\pdf-env\\Scripts\\python.exe",
+        "<PROJECTS_ROOT>\\2026-07-13\\new-chat-4\\completion_workspace\\library_review\\pdf-env\\Scripts\\python.exe",
         "-B",
         "-m",
         "provenance.hierarchy_campaign",
@@ -146,16 +146,16 @@
         "128",
         "diagonal",
         "--out",
-        "D:\\CodexProjects\\2026-07-13\\new-chat-4\\completion_workspace\\library_review\\private\\branch_handoffs\\branch-3\\P052\\current-benchmark"
+        "<PROJECTS_ROOT>\\2026-07-13\\new-chat-4\\completion_workspace\\library_review\\private\\branch_handoffs\\branch-3\\P052\\current-benchmark"
       ],
       "exit": 0,
       "started_utc": "2026-10-14T13:17:19.461215+00:00",
-      "log": "D:\\CodexProjects\\2026-07-13\\new-chat-4\\completion_workspace\\library_review\\private\\branch_handoffs\\branch-3\\P052\\current-benchmark\\hierarchy_bench_128_diagonal.log",
+      "log": "<PROJECTS_ROOT>\\2026-07-13\\new-chat-4\\completion_workspace\\library_review\\private\\branch_handoffs\\branch-3\\P052\\current-benchmark\\hierarchy_bench_128_diagonal.log",
       "log_sha256": "019b9428f7938da0f23d9ad343e4082962c5f9adcd326af73077dc103fe9d942"
     },
     {
       "command": [
-        "D:\\CodexProjects\\2026-07-13\\new-chat-4\\completion_workspace\\library_review\\pdf-env\\Scripts\\python.exe",
+        "<PROJECTS_ROOT>\\2026-07-13\\new-chat-4\\completion_workspace\\library_review\\pdf-env\\Scripts\\python.exe",
         "-B",
         "-m",
         "provenance.hierarchy_campaign",
@@ -163,16 +163,16 @@
         "128",
         "row",
         "--out",
-        "D:\\CodexProjects\\2026-07-13\\new-chat-4\\completion_workspace\\library_review\\private\\branch_handoffs\\branch-3\\P052\\current-benchmark"
+        "<PROJECTS_ROOT>\\2026-07-13\\new-chat-4\\completion_workspace\\library_review\\private\\branch_handoffs\\branch-3\\P052\\current-benchmark"
       ],
       "exit": 0,
       "started_utc": "2026-10-14T13:17:19.678785+00:00",
-      "log": "D:\\CodexProjects\\2026-07-13\\new-chat-4\\completion_workspace\\library_review\\private\\branch_handoffs\\branch-3\\P052\\current-benchmark\\hierarchy_bench_128_row.log",
+      "log": "<PROJECTS_ROOT>\\2026-07-13\\new-chat-4\\completion_workspace\\library_review\\private\\branch_handoffs\\branch-3\\P052\\current-benchmark\\hierarchy_bench_128_row.log",
       "log_sha256": "4e6db164e6cd6bd8f82a7474b279e6b88b5218a52efc3c8c7a307f3a9b9d3be3"
     },
     {
       "command": [
-        "D:\\CodexProjects\\2026-07-13\\new-chat-4\\completion_workspace\\library_review\\pdf-env\\Scripts\\python.exe",
+        "<PROJECTS_ROOT>\\2026-07-13\\new-chat-4\\completion_workspace\\library_review\\pdf-env\\Scripts\\python.exe",
         "-B",
         "-m",
         "provenance.hierarchy_campaign",
@@ -180,16 +180,16 @@
         "128",
         "column",
         "--out",
-        "D:\\CodexProjects\\2026-07-13\\new-chat-4\\completion_workspace\\library_review\\private\\branch_handoffs\\branch-3\\P052\\current-benchmark"
+        "<PROJECTS_ROOT>\\2026-07-13\\new-chat-4\\completion_workspace\\library_review\\private\\branch_handoffs\\branch-3\\P052\\current-benchmark"
       ],
       "exit": 0,
       "started_utc": "2026-10-14T13:17:19.760049+00:00",
-      "log": "D:\\CodexProjects\\2026-07-13\\new-chat-4\\completion_workspace\\library_review\\private\\branch_handoffs\\branch-3\\P052\\current-benchmark\\hierarchy_bench_128_column.log",
+      "log": "<PROJECTS_ROOT>\\2026-07-13\\new-chat-4\\completion_workspace\\library_review\\private\\branch_handoffs\\branch-3\\P052\\current-benchmark\\hierarchy_bench_128_column.log",
       "log_sha256": "0b7beb50c9e789ba54908129c52fb38c1a73fe4f324193ce688c823a454c5e78"
     },
     {
       "command": [
-        "D:\\CodexProjects\\2026-07-13\\new-chat-4\\completion_workspace\\library_review\\pdf-env\\Scripts\\python.exe",
+        "<PROJECTS_ROOT>\\2026-07-13\\new-chat-4\\completion_workspace\\library_review\\pdf-env\\Scripts\\python.exe",
         "-B",
         "-m",
         "provenance.hierarchy_campaign",
@@ -197,16 +197,16 @@
         "128",
         "band",
         "--out",
-        "D:\\CodexProjects\\2026-07-13\\new-chat-4\\completion_workspace\\library_review\\private\\branch_handoffs\\branch-3\\P052\\current-benchmark"
+        "<PROJECTS_ROOT>\\2026-07-13\\new-chat-4\\completion_workspace\\library_review\\private\\branch_handoffs\\branch-3\\P052\\current-benchmark"
       ],
       "exit": 0,
       "started_utc": "2026-10-14T13:17:19.899305+00:00",
-      "log": "D:\\CodexProjects\\2026-07-13\\new-chat-4\\completion_workspace\\library_review\\private\\branch_handoffs\\branch-3\\P052\\current-benchmark\\hierarchy_bench_128_band.log",
+      "log": "<PROJECTS_ROOT>\\2026-07-13\\new-chat-4\\completion_workspace\\library_review\\private\\branch_handoffs\\branch-3\\P052\\current-benchmark\\hierarchy_bench_128_band.log",
       "log_sha256": "46e429e4f3798365650317d41ba2ef0f635040d1f4bc024bb78890f2ac9e3ab9"
     },
     {
       "command": [
-        "D:\\CodexProjects\\2026-07-13\\new-chat-4\\completion_workspace\\library_review\\pdf-env\\Scripts\\python.exe",
+        "<PROJECTS_ROOT>\\2026-07-13\\new-chat-4\\completion_workspace\\library_review\\pdf-env\\Scripts\\python.exe",
         "-B",
         "-m",
         "provenance.hierarchy_campaign",
@@ -214,16 +214,16 @@
         "128",
         "cluster",
         "--out",
-        "D:\\CodexProjects\\2026-07-13\\new-chat-4\\completion_workspace\\library_review\\private\\branch_handoffs\\branch-3\\P052\\current-benchmark"
+        "<PROJECTS_ROOT>\\2026-07-13\\new-chat-4\\completion_workspace\\library_review\\private\\branch_handoffs\\branch-3\\P052\\current-benchmark"
       ],
       "exit": 0,
       "started_utc": "2026-10-14T13:17:20.099833+00:00",
-      "log": "D:\\CodexProjects\\2026-07-13\\new-chat-4\\completion_workspace\\library_review\\private\\branch_handoffs\\branch-3\\P052\\current-benchmark\\hierarchy_bench_128_cluster.log",
+      "log": "<PROJECTS_ROOT>\\2026-07-13\\new-chat-4\\completion_workspace\\library_review\\private\\branch_handoffs\\branch-3\\P052\\current-benchmark\\hierarchy_bench_128_cluster.log",
       "log_sha256": "467570e4e88e261de6f4b80a214ccf47f5601720e27abc7d3efadb986cf1cdf8"
     },
     {
       "command": [
-        "D:\\CodexProjects\\2026-07-13\\new-chat-4\\completion_workspace\\library_review\\pdf-env\\Scripts\\python.exe",
+        "<PROJECTS_ROOT>\\2026-07-13\\new-chat-4\\completion_workspace\\library_review\\pdf-env\\Scripts\\python.exe",
         "-B",
         "-m",
         "provenance.hierarchy_campaign",
@@ -231,16 +231,16 @@
         "128",
         "random",
         "--out",
-        "D:\\CodexProjects\\2026-07-13\\new-chat-4\\completion_workspace\\library_review\\private\\branch_handoffs\\branch-3\\P052\\current-benchmark"
+        "<PROJECTS_ROOT>\\2026-07-13\\new-chat-4\\completion_workspace\\library_review\\private\\branch_handoffs\\branch-3\\P052\\current-benchmark"
       ],
       "exit": 0,
       "started_utc": "2026-10-14T13:17:20.186209+00:00",
-      "log": "D:\\CodexProjects\\2026-07-13\\new-chat-4\\completion_workspace\\library_review\\private\\branch_handoffs\\branch-3\\P052\\current-benchmark\\hierarchy_bench_128_random.log",
+      "log": "<PROJECTS_ROOT>\\2026-07-13\\new-chat-4\\completion_workspace\\library_review\\private\\branch_handoffs\\branch-3\\P052\\current-benchmark\\hierarchy_bench_128_random.log",
       "log_sha256": "b74c4bb771b45c7551542c04bf7d4c4299ff444ef50877f297bbac73d35933f6"
     },
     {
       "command": [
-        "D:\\CodexProjects\\2026-07-13\\new-chat-4\\completion_workspace\\library_review\\pdf-env\\Scripts\\python.exe",
+        "<PROJECTS_ROOT>\\2026-07-13\\new-chat-4\\completion_workspace\\library_review\\pdf-env\\Scripts\\python.exe",
         "-B",
         "-m",
         "provenance.hierarchy_campaign",
@@ -248,16 +248,16 @@
         "512",
         "empty",
         "--out",
-        "D:\\CodexProjects\\2026-07-13\\new-chat-4\\completion_workspace\\library_review\\private\\branch_handoffs\\branch-3\\P052\\current-benchmark"
+        "<PROJECTS_ROOT>\\2026-07-13\\new-chat-4\\completion_workspace\\library_review\\private\\branch_handoffs\\branch-3\\P052\\current-benchmark"
       ],
       "exit": 0,
       "started_utc": "2026-10-14T13:17:20.414728+00:00",
-      "log": "D:\\CodexProjects\\2026-07-13\\new-chat-4\\completion_workspace\\library_review\\private\\branch_handoffs\\branch-3\\P052\\current-benchmark\\hierarchy_bench_512_empty.log",
+      "log": "<PROJECTS_ROOT>\\2026-07-13\\new-chat-4\\completion_workspace\\library_review\\private\\branch_handoffs\\branch-3\\P052\\current-benchmark\\hierarchy_bench_512_empty.log",
       "log_sha256": "0c1e6af15ecb3f5f63391d99f786977342cdb871527f397ff696c01d10065b0e"
     },
     {
       "command": [
-        "D:\\CodexProjects\\2026-07-13\\new-chat-4\\completion_workspace\\library_review\\pdf-env\\Scripts\\python.exe",
+        "<PROJECTS_ROOT>\\2026-07-13\\new-chat-4\\completion_workspace\\library_review\\pdf-env\\Scripts\\python.exe",
         "-B",
         "-m",
         "provenance.hierarchy_campaign",
@@ -265,16 +265,16 @@
         "512",
         "diagonal",
         "--out",
-        "D:\\CodexProjects\\2026-07-13\\new-chat-4\\completion_workspace\\library_review\\private\\branch_handoffs\\branch-3\\P052\\current-benchmark"
+        "<PROJECTS_ROOT>\\2026-07-13\\new-chat-4\\completion_workspace\\library_review\\private\\branch_handoffs\\branch-3\\P052\\current-benchmark"
       ],
       "exit": 0,
       "started_utc": "2026-10-14T13:17:20.564073+00:00",
-      "log": "D:\\CodexProjects\\2026-07-13\\new-chat-4\\completion_workspace\\library_review\\private\\branch_handoffs\\branch-3\\P052\\current-benchmark\\hierarchy_bench_512_diagonal.log",
+      "log": "<PROJECTS_ROOT>\\2026-07-13\\new-chat-4\\completion_workspace\\library_review\\private\\branch_handoffs\\branch-3\\P052\\current-benchmark\\hierarchy_bench_512_diagonal.log",
       "log_sha256": "a9e4d96e4ae8bea7f24d9ab887722f2a910093cc94869bd1fb3d1487ecae9625"
     },
     {
       "command": [
-        "D:\\CodexProjects\\2026-07-13\\new-chat-4\\completion_workspace\\library_review\\pdf-env\\Scripts\\python.exe",
+        "<PROJECTS_ROOT>\\2026-07-13\\new-chat-4\\completion_workspace\\library_review\\pdf-env\\Scripts\\python.exe",
         "-B",
         "-m",
         "provenance.hierarchy_campaign",
@@ -282,16 +282,16 @@
         "512",
         "row",
         "--out",
-        "D:\\CodexProjects\\2026-07-13\\new-chat-4\\completion_workspace\\library_review\\private\\branch_handoffs\\branch-3\\P052\\current-benchmark"
+        "<PROJECTS_ROOT>\\2026-07-13\\new-chat-4\\completion_workspace\\library_review\\private\\branch_handoffs\\branch-3\\P052\\current-benchmark"
       ],
       "exit": 0,
       "started_utc": "2026-10-14T13:17:21.351534+00:00",
-      "log": "D:\\CodexProjects\\2026-07-13\\new-chat-4\\completion_workspace\\library_review\\private\\branch_handoffs\\branch-3\\P052\\current-benchmark\\hierarchy_bench_512_row.log",
+      "log": "<PROJECTS_ROOT>\\2026-07-13\\new-chat-4\\completion_workspace\\library_review\\private\\branch_handoffs\\branch-3\\P052\\current-benchmark\\hierarchy_bench_512_row.log",
       "log_sha256": "4a17ac8fe340729529c2f5ee1a013ca9e27b05cb0bace96f1bf6257370f4fd8b"
     },
     {
       "command": [
-        "D:\\CodexProjects\\2026-07-13\\new-chat-4\\completion_workspace\\library_review\\pdf-env\\Scripts\\python.exe",
+        "<PROJECTS_ROOT>\\2026-07-13\\new-chat-4\\completion_workspace\\library_review\\pdf-env\\Scripts\\python.exe",
         "-B",
         "-m",
         "provenance.hierarchy_campaign",
@@ -299,16 +299,16 @@
         "512",
         "column",
         "--out",
-        "D:\\CodexProjects\\2026-07-13\\new-chat-4\\completion_workspace\\library_review\\private\\branch_handoffs\\branch-3\\P052\\current-benchmark"
+        "<PROJECTS_ROOT>\\2026-07-13\\new-chat-4\\completion_workspace\\library_review\\private\\branch_handoffs\\branch-3\\P052\\current-benchmark"
       ],
       "exit": 0,
       "started_utc": "2026-10-14T13:17:21.459517+00:00",
-      "log": "D:\\CodexProjects\\2026-07-13\\new-chat-4\\completion_workspace\\library_review\\private\\branch_handoffs\\branch-3\\P052\\current-benchmark\\hierarchy_bench_512_column.log",
+      "log": "<PROJECTS_ROOT>\\2026-07-13\\new-chat-4\\completion_workspace\\library_review\\private\\branch_handoffs\\branch-3\\P052\\current-benchmark\\hierarchy_bench_512_column.log",
       "log_sha256": "89ce890781cf5a2c20764ae0cf9983f56003034b34d2cd293b9ea7186256277e"
     },
     {
       "command": [
-        "D:\\CodexProjects\\2026-07-13\\new-chat-4\\completion_workspace\\library_review\\pdf-env\\Scripts\\python.exe",
+        "<PROJECTS_ROOT>\\2026-07-13\\new-chat-4\\completion_workspace\\library_review\\pdf-env\\Scripts\\python.exe",
         "-B",
         "-m",
         "provenance.hierarchy_campaign",
@@ -316,16 +316,16 @@
         "512",
         "band",
         "--out",
-        "D:\\CodexProjects\\2026-07-13\\new-chat-4\\completion_workspace\\library_review\\private\\branch_handoffs\\branch-3\\P052\\current-benchmark"
+        "<PROJECTS_ROOT>\\2026-07-13\\new-chat-4\\completion_workspace\\library_review\\private\\branch_handoffs\\branch-3\\P052\\current-benchmark"
       ],
       "exit": 0,
       "started_utc": "2026-10-14T13:17:21.778553+00:00",
-      "log": "D:\\CodexProjects\\2026-07-13\\new-chat-4\\completion_workspace\\library_review\\private\\branch_handoffs\\branch-3\\P052\\current-benchmark\\hierarchy_bench_512_band.log",
+      "log": "<PROJECTS_ROOT>\\2026-07-13\\new-chat-4\\completion_workspace\\library_review\\private\\branch_handoffs\\branch-3\\P052\\current-benchmark\\hierarchy_bench_512_band.log",
       "log_sha256": "4641ad5b1a3bd6861625a177541f4d0cb8d28c2bcdb4d4849ae275e9b2446677"
     },
     {
       "command": [
-        "D:\\CodexProjects\\2026-07-13\\new-chat-4\\completion_workspace\\library_review\\pdf-env\\Scripts\\python.exe",
+        "<PROJECTS_ROOT>\\2026-07-13\\new-chat-4\\completion_workspace\\library_review\\pdf-env\\Scripts\\python.exe",
         "-B",
         "-m",
         "provenance.hierarchy_campaign",
@@ -333,16 +333,16 @@
         "512",
         "cluster",
         "--out",
-        "D:\\CodexProjects\\2026-07-13\\new-chat-4\\completion_workspace\\library_review\\private\\branch_handoffs\\branch-3\\P052\\current-benchmark"
+        "<PROJECTS_ROOT>\\2026-07-13\\new-chat-4\\completion_workspace\\library_review\\private\\branch_handoffs\\branch-3\\P052\\current-benchmark"
       ],
       "exit": 0,
       "started_utc": "2026-10-14T13:17:22.598221+00:00",
-      "log": "D:\\CodexProjects\\2026-07-13\\new-chat-4\\completion_workspace\\library_review\\private\\branch_handoffs\\branch-3\\P052\\current-benchmark\\hierarchy_bench_512_cluster.log",
+      "log": "<PROJECTS_ROOT>\\2026-07-13\\new-chat-4\\completion_workspace\\library_review\\private\\branch_handoffs\\branch-3\\P052\\current-benchmark\\hierarchy_bench_512_cluster.log",
       "log_sha256": "927fbb11acb8a9325a8e30a690f7819116a82c02d136485bd03e0cfd9bac3d0f"
     },
     {
       "command": [
-        "D:\\CodexProjects\\2026-07-13\\new-chat-4\\completion_workspace\\library_review\\pdf-env\\Scripts\\python.exe",
+        "<PROJECTS_ROOT>\\2026-07-13\\new-chat-4\\completion_workspace\\library_review\\pdf-env\\Scripts\\python.exe",
         "-B",
         "-m",
         "provenance.hierarchy_campaign",
@@ -350,16 +350,16 @@
         "512",
         "random",
         "--out",
-        "D:\\CodexProjects\\2026-07-13\\new-chat-4\\completion_workspace\\library_review\\private\\branch_handoffs\\branch-3\\P052\\current-benchmark"
+        "<PROJECTS_ROOT>\\2026-07-13\\new-chat-4\\completion_workspace\\library_review\\private\\branch_handoffs\\branch-3\\P052\\current-benchmark"
       ],
       "exit": 0,
       "started_utc": "2026-10-14T13:17:22.709273+00:00",
-      "log": "D:\\CodexProjects\\2026-07-13\\new-chat-4\\completion_workspace\\library_review\\private\\branch_handoffs\\branch-3\\P052\\current-benchmark\\hierarchy_bench_512_random.log",
+      "log": "<PROJECTS_ROOT>\\2026-07-13\\new-chat-4\\completion_workspace\\library_review\\private\\branch_handoffs\\branch-3\\P052\\current-benchmark\\hierarchy_bench_512_random.log",
       "log_sha256": "f761808d30e7e44af1d541551c1058c1c82eee501974ad6aaa27af35f75df41c"
     },
     {
       "command": [
-        "D:\\CodexProjects\\2026-07-13\\new-chat-4\\completion_workspace\\library_review\\pdf-env\\Scripts\\python.exe",
+        "<PROJECTS_ROOT>\\2026-07-13\\new-chat-4\\completion_workspace\\library_review\\pdf-env\\Scripts\\python.exe",
         "-B",
         "-m",
         "provenance.hierarchy_campaign",
@@ -367,16 +367,16 @@
         "2048",
         "empty",
         "--out",
-        "D:\\CodexProjects\\2026-07-13\\new-chat-4\\completion_workspace\\library_review\\private\\branch_handoffs\\branch-3\\P052\\current-benchmark"
+        "<PROJECTS_ROOT>\\2026-07-13\\new-chat-4\\completion_workspace\\library_review\\private\\branch_handoffs\\branch-3\\P052\\current-benchmark"
       ],
       "exit": 0,
       "started_utc": "2026-10-14T13:17:23.394817+00:00",
-      "log": "D:\\CodexProjects\\2026-07-13\\new-chat-4\\completion_workspace\\library_review\\private\\branch_handoffs\\branch-3\\P052\\current-benchmark\\hierarchy_bench_2048_empty.log",
+      "log": "<PROJECTS_ROOT>\\2026-07-13\\new-chat-4\\completion_workspace\\library_review\\private\\branch_handoffs\\branch-3\\P052\\current-benchmark\\hierarchy_bench_2048_empty.log",
       "log_sha256": "2d62d00941cba79b872322e75b68d0bd07311fca0f03c761cacccef8fd402889"
     },
     {
       "command": [
-        "D:\\CodexProjects\\2026-07-13\\new-chat-4\\completion_workspace\\library_review\\pdf-env\\Scripts\\python.exe",
+        "<PROJECTS_ROOT>\\2026-07-13\\new-chat-4\\completion_workspace\\library_review\\pdf-env\\Scripts\\python.exe",
         "-B",
         "-m",
         "provenance.hierarchy_campaign",
@@ -384,16 +384,16 @@
         "2048",
         "diagonal",
         "--out",
-        "D:\\CodexProjects\\2026-07-13\\new-chat-4\\completion_workspace\\library_review\\private\\branch_handoffs\\branch-3\\P052\\current-benchmark"
+        "<PROJECTS_ROOT>\\2026-07-13\\new-chat-4\\completion_workspace\\library_review\\private\\branch_handoffs\\branch-3\\P052\\current-benchmark"
       ],
       "exit": 0,
       "started_utc": "2026-10-14T13:17:23.612843+00:00",
-      "log": "D:\\CodexProjects\\2026-07-13\\new-chat-4\\completion_workspace\\library_review\\private\\branch_handoffs\\branch-3\\P052\\current-benchmark\\hierarchy_bench_2048_diagonal.log",
+      "log": "<PROJECTS_ROOT>\\2026-07-13\\new-chat-4\\completion_workspace\\library_review\\private\\branch_handoffs\\branch-3\\P052\\current-benchmark\\hierarchy_bench_2048_diagonal.log",
       "log_sha256": "a6ead44aaddf1425f662f1fed553f5711967035e05e965527ef3c498ddda38da"
     },
     {
       "command": [
-        "D:\\CodexProjects\\2026-07-13\\new-chat-4\\completion_workspace\\library_review\\pdf-env\\Scripts\\python.exe",
+        "<PROJECTS_ROOT>\\2026-07-13\\new-chat-4\\completion_workspace\\library_review\\pdf-env\\Scripts\\python.exe",
         "-B",
         "-m",
         "provenance.hierarchy_campaign",
@@ -401,16 +401,16 @@
         "2048",
         "row",
         "--out",
-        "D:\\CodexProjects\\2026-07-13\\new-chat-4\\completion_workspace\\library_review\\private\\branch_handoffs\\branch-3\\P052\\current-benchmark"
+        "<PROJECTS_ROOT>\\2026-07-13\\new-chat-4\\completion_workspace\\library_review\\private\\branch_handoffs\\branch-3\\P052\\current-benchmark"
       ],
       "exit": 0,
       "started_utc": "2026-10-14T13:17:27.193090+00:00",
-      "log": "D:\\CodexProjects\\2026-07-13\\new-chat-4\\completion_workspace\\library_review\\private\\branch_handoffs\\branch-3\\P052\\current-benchmark\\hierarchy_bench_2048_row.log",
+      "log": "<PROJECTS_ROOT>\\2026-07-13\\new-chat-4\\completion_workspace\\library_review\\private\\branch_handoffs\\branch-3\\P052\\current-benchmark\\hierarchy_bench_2048_row.log",
       "log_sha256": "59e67902e12e3a9449448e6b8ce3464fe9124fe301e62c219a5738fb3a83f771"
     },
     {
       "command": [
-        "D:\\CodexProjects\\2026-07-13\\new-chat-4\\completion_workspace\\library_review\\pdf-env\\Scripts\\python.exe",
+        "<PROJECTS_ROOT>\\2026-07-13\\new-chat-4\\completion_workspace\\library_review\\pdf-env\\Scripts\\python.exe",
         "-B",
         "-m",
         "provenance.hierarchy_campaign",
@@ -418,16 +418,16 @@
         "2048",
         "column",
         "--out",
-        "D:\\CodexProjects\\2026-07-13\\new-chat-4\\completion_workspace\\library_review\\private\\branch_handoffs\\branch-3\\P052\\current-benchmark"
+        "<PROJECTS_ROOT>\\2026-07-13\\new-chat-4\\completion_workspace\\library_review\\private\\branch_handoffs\\branch-3\\P052\\current-benchmark"
       ],
       "exit": 0,
       "started_utc": "2026-10-14T13:17:27.449971+00:00",
-      "log": "D:\\CodexProjects\\2026-07-13\\new-chat-4\\completion_workspace\\library_review\\private\\branch_handoffs\\branch-3\\P052\\current-benchmark\\hierarchy_bench_2048_column.log",
+      "log": "<PROJECTS_ROOT>\\2026-07-13\\new-chat-4\\completion_workspace\\library_review\\private\\branch_handoffs\\branch-3\\P052\\current-benchmark\\hierarchy_bench_2048_column.log",
       "log_sha256": "79e40f367e5454104f60f194e20c9603c8a8a8be4b214936ce6fb419131ad882"
     },
     {
       "command": [
-        "D:\\CodexProjects\\2026-07-13\\new-chat-4\\completion_workspace\\library_review\\pdf-env\\Scripts\\python.exe",
+        "<PROJECTS_ROOT>\\2026-07-13\\new-chat-4\\completion_workspace\\library_review\\pdf-env\\Scripts\\python.exe",
         "-B",
         "-m",
         "provenance.hierarchy_campaign",
@@ -435,16 +435,16 @@
         "2048",
         "band",
         "--out",
-        "D:\\CodexProjects\\2026-07-13\\new-chat-4\\completion_workspace\\library_review\\private\\branch_handoffs\\branch-3\\P052\\current-benchmark"
+        "<PROJECTS_ROOT>\\2026-07-13\\new-chat-4\\completion_workspace\\library_review\\private\\branch_handoffs\\branch-3\\P052\\current-benchmark"
       ],
       "exit": 0,
       "started_utc": "2026-10-14T13:17:28.550389+00:00",
-      "log": "D:\\CodexProjects\\2026-07-13\\new-chat-4\\completion_workspace\\library_review\\private\\branch_handoffs\\branch-3\\P052\\current-benchmark\\hierarchy_bench_2048_band.log",
+      "log": "<PROJECTS_ROOT>\\2026-07-13\\new-chat-4\\completion_workspace\\library_review\\private\\branch_handoffs\\branch-3\\P052\\current-benchmark\\hierarchy_bench_2048_band.log",
       "log_sha256": "b3d45b808f7bb478d75f5c6c4267f61222357f54515c22cbd0cd7af3fb219314"
     },
     {
       "command": [
-        "D:\\CodexProjects\\2026-07-13\\new-chat-4\\completion_workspace\\library_review\\pdf-env\\Scripts\\python.exe",
+        "<PROJECTS_ROOT>\\2026-07-13\\new-chat-4\\completion_workspace\\library_review\\pdf-env\\Scripts\\python.exe",
         "-B",
         "-m",
         "provenance.hierarchy_campaign",
@@ -452,16 +452,16 @@
         "2048",
         "cluster",
         "--out",
-        "D:\\CodexProjects\\2026-07-13\\new-chat-4\\completion_workspace\\library_review\\private\\branch_handoffs\\branch-3\\P052\\current-benchmark"
+        "<PROJECTS_ROOT>\\2026-07-13\\new-chat-4\\completion_workspace\\library_review\\private\\branch_handoffs\\branch-3\\P052\\current-benchmark"
       ],
       "exit": 0,
       "started_utc": "2026-10-14T13:17:32.147162+00:00",
-      "log": "D:\\CodexProjects\\2026-07-13\\new-chat-4\\completion_workspace\\library_review\\private\\branch_handoffs\\branch-3\\P052\\current-benchmark\\hierarchy_bench_2048_cluster.log",
+      "log": "<PROJECTS_ROOT>\\2026-07-13\\new-chat-4\\completion_workspace\\library_review\\private\\branch_handoffs\\branch-3\\P052\\current-benchmark\\hierarchy_bench_2048_cluster.log",
       "log_sha256": "e03cbd9f8061b22e8c9b1b0b9a3c254dfe32c92768e436513a658cf57622cf20"
     },
     {
       "command": [
-        "D:\\CodexProjects\\2026-07-13\\new-chat-4\\completion_workspace\\library_review\\pdf-env\\Scripts\\python.exe",
+        "<PROJECTS_ROOT>\\2026-07-13\\new-chat-4\\completion_workspace\\library_review\\pdf-env\\Scripts\\python.exe",
         "-B",
         "-m",
         "provenance.hierarchy_campaign",
@@ -469,11 +469,11 @@
         "2048",
         "random",
         "--out",
-        "D:\\CodexProjects\\2026-07-13\\new-chat-4\\completion_workspace\\library_review\\private\\branch_handoffs\\branch-3\\P052\\current-benchmark"
+        "<PROJECTS_ROOT>\\2026-07-13\\new-chat-4\\completion_workspace\\library_review\\private\\branch_handoffs\\branch-3\\P052\\current-benchmark"
       ],
       "exit": 0,
       "started_utc": "2026-10-14T13:17:32.411265+00:00",
-      "log": "D:\\CodexProjects\\2026-07-13\\new-chat-4\\completion_workspace\\library_review\\private\\branch_handoffs\\branch-3\\P052\\current-benchmark\\hierarchy_bench_2048_random.log",
+      "log": "<PROJECTS_ROOT>\\2026-07-13\\new-chat-4\\completion_workspace\\library_review\\private\\branch_handoffs\\branch-3\\P052\\current-benchmark\\hierarchy_bench_2048_random.log",
       "log_sha256": "41ec255bf12b1c2175fc3414001317313e16a153b7222394604d5b582373b708"
     }
   ],
